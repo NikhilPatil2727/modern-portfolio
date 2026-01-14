@@ -49,7 +49,7 @@ const socialIcons = [
 export default function Footer() {
   return (
     <footer className="border-t border-gray-200 dark:border-gray-800 py-12">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-4xl mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {footerSections.map((section) => (
             <div key={section.title}>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import profilePic from '../../public/Nikhil_image.png'; // Import the file
 
-export default function Hero() {
+export default function Hero() {  
   return (
     <section className="relative  max-w-4xl mx-auto px-6 py-20 md:py-32">
       <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12">
