@@ -1,25 +1,64 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { ExternalLink, Github } from "lucide-react";
-import { CardBody, CardContainer } from "../ui/3d-card";
 import { Project } from "@/types";
 
 const projects: Project[] = [
   {
-    name: "Moonbeam",
-    image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=300&fit=crop",
+    name: "WebCraft",
+    image: "/Website.png",
     description:
-      "Never write from scratch again. Kickstart your next great writing piece with Moonbeam.",
-    tags: ["Next.js", "React", "Tailwind", "Chrome Extension"],
-    liveLink: "https://moonbeam.ai",
-    github: "https://github.com",
+      "Developed a full-stack automated website builder using React.js and Node.js that generates complete websites from user input with real-time preview functionality.",
+    tags: [ "React", "Tailwind", "Node.js", "Express.js"],
+    liveLink: "https://astonishing-brioche-b2cfa1.netlify.app/",
+    github: "https://github.com/NikhilPatil2727",
   },
+  {
+    name: "X Code Reviewer AI",
+    image: "/VsCode.png",
+    description:
+      "Built an AI-powered VS Code extension in JavaScript that reviews code and suggests improvements in real time, helping developers write cleaner and better code.",
+    tags: ["VS Code Extension", "AI", "JavaScript", "Developer Tools"],
+    liveLink:
+      "https://marketplace.visualstudio.com/items?itemName=nikhil27.x-code-reviewer-ai",
+    github: "https://github.com/NikhilPatil2727",
+  },
+  {
+    name: " XVisualizer",
+    image: "/DSA.png",
+    description:
+      "Built an interactive DSA Visualizer using React.js with Framer Motion animations to visualize sorting algorithms, tree traversals, and graph searches",
+    tags: ["React.js", "Tailwind", "framer-motion", "Node.js", "Express.js", "MongoDB", "redux"],
+    liveLink: "https://www.linkedin.com/feed/update/urn:li:activity:7414210655811194880/",
+    github: "https://github.com/NikhilPatil2727",
+  },
+  
 ];
 
 export default function Projects({ limit }: { limit?: number }) {
   const displayedProjects = limit ? projects.slice(0, limit) : projects;
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    const card = cardRefs.current[index];
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    
+    card.style.setProperty('--mouse-x', `${x}%`);
+    card.style.setProperty('--mouse-y', `${y}%`);
+  };
+
+  const handleMouseLeave = (index: number) => {
+    const card = cardRefs.current[index];
+    if (card) {
+      card.style.setProperty('--mouse-x', `50%`);
+      card.style.setProperty('--mouse-y', `50%`);
+    }
+  };
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-16">
@@ -27,55 +66,164 @@ export default function Projects({ limit }: { limit?: number }) {
 
       <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
         {displayedProjects.map((project, idx) => (
-          <CardContainer key={idx} className="w-full">
-            <CardBody
+          <div
+            key={idx}
+            ref={(el) => { cardRefs.current[idx] = el; }}
+            onMouseMove={(e) => handleMouseMove(e, idx)}
+            onMouseLeave={() => handleMouseLeave(idx)}
+            className="
+              group relative
+              w-full h-full
+              flex flex-col
+              bg-white dark:bg-gray-900
+              rounded-2xl p-6
+              border border-gray-200 dark:border-gray-800
+              transition-all duration-300 ease-out
+              overflow-hidden
+              cursor-pointer
+              hover:border-blue-300 dark:hover:border-blue-700
+              hover:shadow-lg hover:shadow-blue-500/20
+              hover:-translate-y-1
+              isolate
+            "
+            style={{
+              '--mouse-x': '50%',
+              '--mouse-y': '50%',
+            } as React.CSSProperties}
+          >
+            {/* Visible gradient that follows cursor */}
+            <div 
               className="
-    w-full h-full
-    bg-white dark:bg-black
-    rounded-2xl p-6
-    border border-black/10 dark:border-white/25  /* Even higher border opacity */
-    transition-all duration-300 ease-out
+                absolute inset-0 
+                opacity-0 group-hover:opacity-100
+                transition-opacity duration-500
+                pointer-events-none
+                z-0
+              "
+              style={{
+                background: `radial-gradient(
+                  500px circle at var(--mouse-x) var(--mouse-y), 
+                  rgba(59, 130, 246, 0.08), 
+                  rgba(147, 51, 234, 0.05), 
+                  transparent 50%
+                )`,
+              }}
+            />
 
-    shadow-md shadow-black/5
-    hover:shadow-xl hover:shadow-black/10
+            {/* Color flow effect */}
+            <div 
+              className="
+                absolute inset-0 
+                opacity-0 group-hover:opacity-40
+                transition-opacity duration-700
+                pointer-events-none
+                z-0
+              "
+              style={{
+                background: `linear-gradient(
+                  45deg,
+                  transparent 0%,
+                  rgba(59, 130, 246, 0.05) 20%,
+                  rgba(147, 51, 234, 0.03) 40%,
+                  rgba(236, 72, 153, 0.02) 60%,
+                  transparent 100%
+                )`,
+                transform: `translate(
+                  calc(var(--mouse-x) * 0.03 - 50%),
+                  calc(var(--mouse-y) * 0.03 - 50%)
+                )`,
+              }}
+            />
 
-    /* More intense shadows for black background */
-    dark:shadow-[0_12px_24px_rgba(0,0,0,1),0_0_0_1px_rgba(255,255,255,0.2)]
-    dark:hover:shadow-[0_20px_40px_rgba(0,0,0,1),0_0_0_1px_rgba(255,255,255,0.25)]
-    dark:hover:scale-[1.02]  /* Optional: slight scale on hover for emphasis */
-  "
-            >
-              {/* Image */}
-              <div className="relative h-48 w-full overflow-hidden rounded-xl mb-5">
-                <img
-                  src={project.image}
-                  alt={project.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            {/* Image */}
+            <div className="relative h-48 w-full overflow-hidden rounded-xl mb-5 z-10">
+              <div 
+                className="
+                  absolute inset-0
+                  opacity-0 group-hover:opacity-60
+                  transition-opacity duration-500
+                  z-10
+                "
+                style={{
+                  background: `radial-gradient(
+                    ellipse at var(--mouse-x) var(--mouse-y), 
+                    rgba(59, 130, 246, 0.2), 
+                    transparent 60%
+                  )`,
+                }}
+              />
+              <img
+                src={project.image}
+                alt={project.name}
+                className="
+                  w-full h-full object-cover
+                  transition-transform duration-700 ease-out
+                  group-hover:scale-105
+                  relative z-0
+                "
+              />
+            </div>
 
-              {/* Title */}
-              <h3 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">
-                {project.name}
-              </h3>
+            {/* Title */}
+            <h3 className="
+              text-2xl font-semibold mb-2 
+              relative z-10
+              text-gray-900 dark:text-white
+              transition-colors duration-300
+              group-hover:text-blue-600 dark:group-hover:text-blue-400
+            ">
+              {project.name}
+            </h3>
 
-              {/* Description */}
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-5">
-                {project.description}
-              </p>
+            {/* Description */}
+            <p className="
+              text-gray-600 dark:text-gray-400 
+              text-sm leading-relaxed mb-5
+              transition-colors duration-300
+              group-hover:text-gray-800 dark:group-hover:text-gray-200
+              relative z-10
+            ">
+              {project.description}
+            </p>
 
-              {/* Tags */}
+            {/* Bottom content */}
+            <div className="mt-auto relative z-10">
+              {/* Tags with visible effect */}
               <div className="flex flex-wrap gap-2 mb-6">
                 {project.tags.map((tag, i) => (
                   <span
                     key={i}
                     className="
+                      relative
                       px-3 py-1 text-xs font-medium rounded-full
                       bg-gray-100 text-gray-700
                       dark:bg-gray-800 dark:text-gray-300
+                      transition-all duration-300 ease-out
+                      group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20
+                      group-hover:text-blue-700 dark:group-hover:text-blue-300
+                      group-hover:scale-105
+                      group-hover:shadow-sm group-hover:shadow-blue-500/30
+                      overflow-hidden
                     "
                   >
-                    {tag}
+                    {/* Tag highlight */}
+                    <div 
+                      className="
+                        absolute inset-0
+                        opacity-0 group-hover:opacity-100
+                        transition-opacity duration-500
+                      "
+                      style={{
+                        background: `radial-gradient(
+                          circle at var(--mouse-x) var(--mouse-y), 
+                          rgba(59, 130, 246, 0.15), 
+                          transparent 60%
+                        )`,
+                      }}
+                    />
+                    <span className="relative z-10">
+                      {tag}
+                    </span>
                   </span>
                 ))}
               </div>
@@ -87,15 +235,38 @@ export default function Projects({ limit }: { limit?: number }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="
+                    relative
                     inline-flex items-center gap-2
                     px-4 py-2 rounded-lg text-sm font-semibold
-                    bg-black text-white
-                    dark:bg-white dark:text-black
-                    transition-transform hover:scale-[1.03]
+                    bg-gradient-to-r from-black to-black
+                    text-white
+                    overflow-hidden
+                    transition-all duration-300 ease-out
+                    hover:scale-105 hover:shadow-lg hover:shadow-blue-500/40
+                    active:scale-95
+                    cursor-pointer
+                    select-none
+                    z-20
                   "
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <ExternalLink className="w-4 h-4" />
-                  Live
+                  {/* Button glow */}
+                  <div 
+                    className="
+                      absolute inset-0
+                      opacity-0 hover:opacity-100
+                      transition-opacity duration-500
+                    "
+                    style={{
+                      background: `radial-gradient(
+                        circle at var(--mouse-x) var(--mouse-y), 
+                        rgba(255, 255, 255, 0.3), 
+                        transparent 60%
+                      )`,
+                    }}
+                  />
+                  <ExternalLink className="w-4 h-4 relative z-10" />
+                  <span className="relative z-10">Live</span>
                 </a>
 
                 <a
@@ -103,19 +274,83 @@ export default function Projects({ limit }: { limit?: number }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="
+                    relative
                     inline-flex items-center gap-2
                     px-4 py-2 rounded-lg text-sm font-semibold
                     border border-gray-300 dark:border-gray-700
                     text-gray-700 dark:text-gray-300
-                    transition-transform hover:scale-[1.03]
+                    overflow-hidden
+                    transition-all duration-300 ease-out
+                    hover:scale-105 hover:shadow-lg
+                    hover:text-blue-600 dark:hover:text-blue-400
+                    hover:border-blue-400 dark:hover:border-blue-600
+                    hover:bg-blue-50 dark:hover:bg-blue-900/20
+                    active:scale-95
+                    cursor-pointer
+                    select-none
+                    z-20
                   "
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <Github className="w-4 h-4" />
-                  Code
+                  {/* Button effect */}
+                  <div 
+                    className="
+                      absolute inset-0
+                      opacity-0 hover:opacity-100
+                      transition-opacity duration-500
+                    "
+                    style={{
+                      background: `radial-gradient(
+                        circle at var(--mouse-x) var(--mouse-y), 
+                        rgba(59, 130, 246, 0.1), 
+                        transparent 60%
+                      )`,
+                    }}
+                  />
+                  <Github className="w-4 h-4 relative z-10" />
+                  <span className="relative z-10">Code</span>
                 </a>
               </div>
-            </CardBody>
-          </CardContainer>
+            </div>
+
+            {/* Corner accent */}
+            <div 
+              className="
+                absolute top-0 right-0 w-32 h-32
+                opacity-0 group-hover:opacity-100
+                transition-opacity duration-700
+                pointer-events-none
+                z-0
+              "
+              style={{
+                background: `radial-gradient(
+                  circle at var(--mouse-x) var(--mouse-y), 
+                  rgba(59, 130, 246, 0.1), 
+                  transparent 60%
+                )`,
+              }}
+            />
+
+            {/* Subtle border glow */}
+            <div className="
+              absolute inset-0 rounded-2xl
+              opacity-0 group-hover:opacity-100
+              transition-opacity duration-500
+              pointer-events-none
+              z-0
+            ">
+              <div 
+                className="
+                  absolute inset-0 rounded-2xl
+                  border border-blue-400/30 dark:border-blue-600/30
+                  blur-sm
+                "
+                style={{
+                  transform: `scale(1.02)`,
+                }}
+              />
+            </div>
+          </div>
         ))}
       </div>
     </section>

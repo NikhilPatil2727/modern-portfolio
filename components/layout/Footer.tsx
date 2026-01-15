@@ -1,50 +1,44 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Github, Linkedin, Twitter, Instagram, Mail } from 'lucide-react';
+import Link from "next/link";
+
+import Image from "next/image";
 
 const footerSections = [
   {
-    title: 'Navigation',
+    title: "Navigation",
     links: [
-      { name: 'Home', href: '/' },
-      { name: 'Blog', href: '/blog' },
-      { name: 'Dashboard', href: '/dashboard' },
-      { name: 'Projects', href: '/projects' },
-      { name: 'Links', href: '/links' },
+      { name: "Home", href: "/" },
+      { name: "Blog", href: "/blog" },
+      { name: "Dashboard", href: "/dashboard" },
+      { name: "Projects", href: "/projects" },
+      { name: "Links", href: "/links" },
     ],
   },
   {
-    title: 'Social',
+    title: "Social",
     links: [
-      { name: 'GitHub', href: 'https://github.com' },
-      { name: 'LinkedIn', href: 'https://linkedin.com' },
-      { name: 'Twitter', href: 'https://twitter.com' },
-      { name: 'Instagram', href: 'https://instagram.com' },
-      { name: 'Freelancing', href: '/freelancing' },
+      { name: "GitHub", href: "https://github.com" },
+      { name: "LinkedIn", href: "https://linkedin.com" },
+      { name: "Twitter", href: "https://twitter.com" },
+      { name: "Instagram", href: "https://instagram.com" },
+      { name: "Freelancing", href: "/freelancing" },
     ],
   },
   {
-    title: 'Resources',
+    title: "Resources",
     links: [
-      { name: 'Snippets', href: '/snippets' },
-      { name: 'Tweets', href: '/tweets' },
-      { name: 'Resources', href: '/resources' },
-      { name: 'Live Demos', href: '/demos' },
-      { name: 'freeCodeCamp', href: 'https://freecodecamp.org' },
-      { name: 'Box Shadows', href: '/box-shadows' },
-      { name: 'Design Inspiration', href: '/design-inspiration' },
+      { name: "Snippets", href: "/snippets" },
+      { name: "Tweets", href: "/tweets" },
+      { name: "Resources", href: "/resources" },
+      { name: "Live Demos", href: "/demos" },
+      { name: "freeCodeCamp", href: "https://freecodecamp.org" },
+      { name: "Box Shadows", href: "/box-shadows" },
+      { name: "Design Inspiration", href: "/design-inspiration" },
     ],
   },
 ];
 
-const socialIcons = [
-  { icon: Github, href: 'https://github.com' },
-  { icon: Linkedin, href: 'https://linkedin.com' },
-  { icon: Twitter, href: 'https://twitter.com' },
-  { icon: Instagram, href: 'https://instagram.com' },
-  { icon: Mail, href: 'mailto:contact@example.com' },
-];
 
 export default function Footer() {
   return (
@@ -70,25 +64,44 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="flex justify-between items-center pt-8 border-t border-gray-200 dark:border-gray-800">
-          <div className="text-gray-600 dark:text-gray-400 text-sm">
-            <p className="mb-2">Find me on X and P</p>
-            <p>Portfolio inspired by Lee Rob</p>
+        <div className="text-gray-600 dark:text-gray-400 text-sm">
+          <div className="flex items-center gap-2 mb-2">
+            <span>Find me on</span>
+
+            <Link
+              href="https://x.com/yourhandle"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full hover:bg-accent transition cursor-pointer flex items-center"
+            >
+              <Image
+                src="/x.png"
+                alt="X (Twitter)"
+                width={25}
+                height={25}
+                className="dark:invert"
+              />
+            </Link>
+
+            <span>and</span>
+
+            <Link
+              href="https://peerlist.io/your-username"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full hover:bg-accent transition cursor-pointer flex items-center"
+            >
+              <Image
+                src="/peerlist.jpg"
+                alt="Peerlist"
+                width={18}
+                height={18}
+                className="object-contain"
+              />
+            </Link>
           </div>
 
-          <div className="flex gap-4">
-            {socialIcons.map(({ icon: Icon, href }) => (
-              <a
-                key={href}
-                href={href}
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            ))}
-          </div>
+          <p>Portfolio inspired by Lee Rob</p>
         </div>
       </div>
     </footer>
