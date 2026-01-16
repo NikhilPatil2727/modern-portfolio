@@ -81,7 +81,7 @@ export default function Footer() {
                 height={25}
                 className="dark:invert"
               />
-            </Link>
+            </Link> 
 
             <span>and</span>
 
