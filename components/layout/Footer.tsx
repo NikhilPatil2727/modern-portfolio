@@ -42,18 +42,25 @@ const footerSections = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-200 dark:border-gray-800 py-12">
+    <footer className="border-t border-gray-200 dark:border-gray-800 py-10 md:py-12">
       <div className="max-w-4xl mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        
+        {/* Sections */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="font-semibold text-lg mb-4">{section.title}</h3>
+              <h3 className="font-semibold text-lg mb-4">
+                {section.title}
+              </h3>
+
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
+                      className="text-gray-600 dark:text-gray-400 
+                                 hover:text-gray-900 dark:hover:text-white 
+                                 transition"
                     >
                       {link.name}
                     </Link>
@@ -64,15 +71,16 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="text-gray-600 dark:text-gray-400 text-sm">
-          <div className="flex items-center gap-2 mb-2">
+        {/* Bottom section */}
+        <div className="text-gray-600 dark:text-gray-400 text-sm text-center md:text-left">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-2">
             <span>Find me on</span>
 
             <Link
               href="https://x.com/yourhandle"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full hover:bg-accent transition cursor-pointer flex items-center"
+              className="p-2 rounded-full hover:bg-accent transition flex items-center"
             >
               <Image
                 src="/x.png"
@@ -81,7 +89,7 @@ export default function Footer() {
                 height={25}
                 className="dark:invert"
               />
-            </Link> 
+            </Link>
 
             <span>and</span>
 
@@ -89,7 +97,7 @@ export default function Footer() {
               href="https://peerlist.io/your-username"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full hover:bg-accent transition cursor-pointer flex items-center"
+              className="p-2 rounded-full hover:bg-accent transition flex items-center"
             >
               <Image
                 src="/peerlist.jpg"
@@ -101,9 +109,13 @@ export default function Footer() {
             </Link>
           </div>
 
-          <p>Portfolio inspired by Lee Rob</p>
+          <p className="text-center md:text-left">
+            Portfolio inspired by Lee Rob
+          </p>
         </div>
+
       </div>
     </footer>
   );
 }
+
