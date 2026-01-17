@@ -61,7 +61,7 @@ export default function Projects({ limit }: { limit?: number }) {
   };
 
   return (
-    <section className="max-w-4xl mx-auto px-4 py-16">
+    <section className="max-w-3xl mx-auto px-4 py-16">
       <h2 className="text-4xl font-bold mb-10 text-gray-900 dark:text-white">Projects</h2>
 
       <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
@@ -76,7 +76,7 @@ export default function Projects({ limit }: { limit?: number }) {
               w-full h-full
               flex flex-col
               bg-white dark:bg-gray-950
-              rounded-2xl p-6
+              rounded-2xl p-5
               border border-gray-200 dark:border-gray-800
               transition-all duration-300 ease-out
               overflow-hidden
@@ -148,8 +148,8 @@ export default function Projects({ limit }: { limit?: number }) {
               }}
             />
 
-            {/* Image */}
-            <div className="relative h-48 w-full overflow-hidden rounded-xl mb-5 z-10">
+            {/* Image - Reduced height */}
+            <div className="relative h-40 w-full overflow-hidden rounded-xl mb-4 z-10">
               <div 
                 className="
                   absolute inset-0
@@ -179,7 +179,7 @@ export default function Projects({ limit }: { limit?: number }) {
 
             {/* Title */}
             <h3 className="
-              text-2xl font-semibold mb-2 
+              text-xl font-semibold mb-2 
               relative z-10
               text-gray-900 dark:text-gray-100
               transition-colors duration-300
@@ -188,21 +188,22 @@ export default function Projects({ limit }: { limit?: number }) {
               {project.name}
             </h3>
 
-            {/* Description */}
+            {/* Description - Reduced line height and margin */}
             <p className="
               text-gray-600 dark:text-gray-300 
-              text-sm leading-relaxed mb-5
+              text-sm leading-normal mb-4
               transition-colors duration-300
               group-hover:text-gray-800 dark:group-hover:text-gray-200
               relative z-10
+              line-clamp-3
             ">
               {project.description}
             </p>
 
             {/* Bottom content */}
             <div className="mt-auto relative z-10">
-              {/* Tags with visible effect */}
-              <div className="flex flex-wrap gap-2 mb-6">
+              {/* Tags with visible effect - Reduced margin */}
+              <div className="flex flex-wrap gap-2 mb-4">
                 {project.tags.map((tag, i) => (
                   <span
                     key={i}

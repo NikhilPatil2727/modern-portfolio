@@ -3,61 +3,81 @@
 import { Skill } from "@/types";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
 
 const skills: Skill[] = [
   {
-    name: "MongoDB",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-    color: "#47A248",
-    darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-  },
-  {
-    name: "Express.js",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    name: "Next.js",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
     color: "#000000",
-    darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    glowColor: "#ffffff",
   },
   {
     name: "React",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
     color: "#61DAFB",
     darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    glowColor: "#61DAFB",
+  },
+  {
+    name: "Redux",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+    color: "#764ABC",
+    darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+    glowColor: "#764ABC",
+  },
+  {
+    name: "MongoDB",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    color: "#47A248",
+    darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    glowColor: "#47A248",
+  },
+  {
+    name: "Express.js",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    color: "#000000",
+    darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    glowColor: "#ffffff",
   },
   {
     name: "Node.js",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
     color: "#339933",
     darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-  },
-  {
-    name: "JavaScript",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-    color: "#F7DF1E",
-    darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    glowColor: "#339933",
   },
   {
     name: "TypeScript",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
     color: "#3178C6",
     darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    glowColor: "#3178C6",
   },
   {
     name: "TailwindCSS",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
     color: "#06B6D4",
     darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    glowColor: "#06B6D4",
+  },
+  {
+    name: "JavaScript",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    color: "#F7DF1E",
+    darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    glowColor: "#F7DF1E",
   },
   {
     name: "Git",
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
     color: "#F05032",
     darkLogo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    glowColor: "#F05032",
   },
 ];
 
-// Update your Skill type to include darkLogo
-type EnhancedSkill = Skill & { darkLogo?: string };
+type EnhancedSkill = Skill & { darkLogo?: string; glowColor?: string };
 
 export default function Skills() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -66,11 +86,9 @@ export default function Skills() {
 
   useEffect(() => {
     setMounted(true);
-    // Check for dark mode
     const isDark = document.documentElement.classList.contains('dark');
     setIsDarkMode(isDark);
     
-    // Observe for dark mode changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'class') {
@@ -84,35 +102,33 @@ export default function Skills() {
     return () => observer.disconnect();
   }, []);
 
-  // Function to get the appropriate logo based on theme
   const getLogoForTheme = (skill: EnhancedSkill) => {
-    if (skill.name === "Express.js") {
-      // For Express.js, use white version in dark mode
-      return isDarkMode 
-        ? "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
-        : "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg";
+    if (isDarkMode && skill.name === "Express.js") {
+      return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg";
+    }
+    if (isDarkMode && skill.name === "Next.js") {
+      return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg";
     }
     return skill.logo;
   };
 
-  // Function to get the appropriate color based on theme
   const getColorForTheme = (skill: EnhancedSkill) => {
     if (isDarkMode) {
-      // In dark mode, all skills get a modern dark theme
       return {
-        glowColor: "#ffffff10",
+        glowColor: skill.glowColor ? `${skill.glowColor}30` : "#ffffff20",
         textColor: "#ffffff",
         borderColor: "#ffffff15",
-        shadowColor: "#ffffff08",
+        shadowColor: skill.glowColor ? `${skill.glowColor}15` : "#ffffff10",
+        cardGlow: skill.glowColor ? `${skill.glowColor}20` : "#ffffff10",
       };
     }
     
-    // In light mode, use skill's original color
     return {
       glowColor: `${skill.color}20`,
       textColor: skill.color,
       borderColor: `${skill.color}30`,
       shadowColor: `${skill.color}40`,
+      cardGlow: `${skill.color}15`,
     };
   };
 
@@ -121,8 +137,8 @@ export default function Skills() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
+        staggerChildren: 0.08,
+        delayChildren: 0.1,
       },
     },
   };
@@ -140,7 +156,7 @@ export default function Skills() {
     },
     hover: {
       y: -8,
-      scale: 1.05,
+      scale: 1.03,
       transition: {
         type: "spring",
         stiffness: 400,
@@ -149,26 +165,53 @@ export default function Skills() {
     },
   };
 
-  const glowVariants = {
-    initial: { opacity: 0, scale: 0.8 },
-    hover: { opacity: 1, scale: 1 },
-  };
-
   const iconVariants = {
     initial: { rotate: 0 },
-    hover: { rotate: 15 },
+    hover: (index: number) => ({
+      rotate: [0, -5, 5, -5, 0],
+      transition: {
+        duration: 0.6,
+        ease: "easeInOut",
+      },
+    }),
+  };
+
+  const skillNameVariants = {
+    initial: { scale: 1 },
+    hover: { 
+      scale: 1.05,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10,
+      },
+    },
   };
 
   if (!mounted) {
     return (
-      <section className="max-w-4xl mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold mb-8">Skills & Technologies</h2>
-        <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[...Array(8)].map((_, idx) => (
-              <div key={idx} className="flex flex-col items-center gap-4 p-6">
-                <div className="w-20 h-20 bg-gray-200 dark:bg-gray-700 rounded-2xl animate-pulse" />
-                <div className="h-6 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+      <section className="max-w-3xl mx-auto px-4 py-16">
+        <div className={`p-8 rounded-3xl ${
+          isDarkMode 
+            ? "bg-gradient-to-br from-gray-900 to-black" 
+            : "bg-white"
+        } shadow-2xl border ${isDarkMode ? "border-gray-800/50" : "border-gray-100"}`}>
+          <h2 className="text-4xl font-bold mb-10 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+            Skills & Technologies
+          </h2>
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
+            {[...Array(10)].map((_, idx) => (
+              <div key={idx} className="flex flex-col items-center gap-4 p-4">
+                <div className={`w-16 h-16 ${
+                  isDarkMode 
+                    ? "bg-gradient-to-br from-gray-800 to-gray-900" 
+                    : "bg-gray-200"
+                } rounded-2xl animate-pulse border ${isDarkMode ? "border-gray-700" : "border-gray-300"}`} />
+                <div className={`h-5 w-20 ${
+                  isDarkMode 
+                    ? "bg-gradient-to-r from-gray-800 to-gray-700" 
+                    : "bg-gray-200"
+                } rounded animate-pulse`} />
               </div>
             ))}
           </div>
@@ -178,205 +221,314 @@ export default function Skills() {
   }
 
   return (
-    <section className="max-w-4xl mx-auto px-4 py-16">
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-        className="text-4xl font-bold mb-8 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
-      >
-        Skills & Technologies
-      </motion.h2>
-      
+    <section className="max-w-3xl mx-auto px-4 py-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className={`p-8 rounded-3xl shadow-2xl border relative overflow-hidden ${
+        className={`p-8 rounded-3xl relative overflow-hidden ${
           isDarkMode 
-            ? "bg-gray-950 border-gray-800" 
-            : "bg-white border-gray-100"
-        }`}
+            ? "bg-gradient-to-br from-gray-900 via-black to-gray-950 shadow-2xl shadow-black/30" 
+            : "bg-gradient-to-br from-white via-gray-50 to-white shadow-2xl shadow-gray-200/30"
+        } border`}
+        style={{
+          borderColor: isDarkMode 
+            ? 'rgba(255, 255, 255, 0.05)' 
+            : 'rgba(0, 0, 0, 0.05)',
+        }}
       >
-        {/* Subtle background gradient */}
-        <div className={`absolute inset-0 bg-gradient-to-br from-transparent via-transparent ${
-          isDarkMode 
-            ? "to-gray-900/20" 
-            : "to-gray-50/50"
-        } pointer-events-none`} />
-        
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10"
-        >
-          {skills.map((skill, idx) => {
-            const themeColors = getColorForTheme(skill);
-            const skillLogo = getLogoForTheme(skill);
-            
-            return (
-              <motion.div
-                key={idx}
-                variants={itemVariants}
-                whileHover="hover"
-                initial="initial"
-                animate="initial"
-                onMouseEnter={() => setHoveredIndex(idx)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="relative"
-              >
-                {/* Animated glow effect */}
-                <motion.div
-                  variants={glowVariants}
-                  className="absolute inset-0 rounded-2xl"
-                  style={{
-                    background: `radial-gradient(circle at center, ${themeColors.glowColor} 0%, transparent 70%)`,
-                    filter: "blur(12px)",
-                  }}
-                />
-                
-                {/* Main card */}
-                <div className={`relative flex flex-col items-center gap-4 p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 overflow-hidden group cursor-pointer border ${
-                  isDarkMode
-                    ? "bg-gray-900/80 border-gray-800 hover:border-gray-600"
-                    : "bg-gradient-to-b from-gray-50/80 to-white border-gray-200/50 hover:border-gray-300/50"
-                }`}
-                  style={{
-                    boxShadow: hoveredIndex === idx 
-                      ? `0 20px 40px -15px ${isDarkMode ? '#ffffff10' : themeColors.shadowColor}`
-                      : isDarkMode
-                      ? "0 8px 32px -8px rgba(0,0,0,0.3)"
-                      : "0 8px 32px -8px rgba(0,0,0,0.1)",
-                  }}
-                >
-                  
-                  {/* Subtle shine effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-r from-transparent ${
-                    isDarkMode 
-                      ? "via-white/5" 
-                      : "via-white/10"
-                  } to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000`} />
-                  
-                  {/* Icon container with 3D effect */}
-                  <motion.div
-                    variants={iconVariants}
-                    className={`relative w-20 h-20 flex items-center justify-center rounded-2xl shadow-lg group-hover:shadow-xl border ${
-                      isDarkMode
-                        ? "bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700/50"
-                        : "bg-gradient-to-br from-white to-gray-100 border-gray-200/50"
-                    }`}
-                    style={{
-                      boxShadow: hoveredIndex === idx 
-                        ? `0 20px 40px -15px ${themeColors.shadowColor}, inset 0 1px 0 0 ${isDarkMode ? '#ffffff10' : 'rgba(255,255,255,0.2)'}`
-                        : `inset 0 1px 0 0 ${isDarkMode ? '#ffffff10' : 'rgba(255,255,255,0.2)'}`,
-                    }}
-                  >
-                    {/* Pulsing ring effect - only in light mode */}
-                    {!isDarkMode && hoveredIndex === idx && (
-                      <motion.div
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1.2, opacity: 0 }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          repeatType: "loop",
-                        }}
-                        className="absolute inset-0 rounded-2xl border-2"
-                        style={{ borderColor: skill.color }}
-                      />
-                    )}
-                    
-                    {/* Express.js special handling */}
-                    {skill.name === "Express.js" && (
-                      <div className="relative w-full h-full flex items-center justify-center">
-                        {!isDarkMode && (
-                          <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-white rounded-2xl" />
-                        )}
-                        <img
-                          src={skillLogo}
-                          alt={skill.name}
-                          className="w-12 h-12 object-contain z-10 relative"
-                          style={{
-                            filter: isDarkMode 
-                              ? "invert(0) brightness(2)"  // Light version for dark mode
-                              : "invert(0)",  // Normal version for light mode
-                          }}
-                        />
-                      </div>
-                    )}
-                    
-                    {/* Other icons */}
-                    {skill.name !== "Express.js" && (
-                      <img
-                        src={skillLogo}
-                        alt={skill.name}
-                        className="w-12 h-12 object-contain z-10"
-                        style={
-                          skill.name === "Express.js" && isDarkMode
-                            ? { filter: "invert(0)" }
-                            : {}
-                        }
-                      />
-                    )}
-                  </motion.div>
-                  
-                  {/* Skill name */}
-                  <motion.span
-                    className={`font-semibold text-center text-lg ${
-                      isDarkMode
-                        ? "text-white"
-                        : "bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent"
-                    }`}
-                    animate={
-                      hoveredIndex === idx && !isDarkMode
-                        ? {
-                            backgroundImage: `linear-gradient(to right, ${skill.color}, ${skill.color}CC)`,
-                          }
-                        : {}
-                    }
-                  >
-                    {skill.name}
-                  </motion.span>
-                  
-                  {/* Subtle indicator line */}
-                  <motion.div
-                    className="h-1 rounded-full"
-                    style={{
-                      background: isDarkMode
-                        ? "linear-gradient(to right, transparent, #ffffff, transparent)"
-                        : "linear-gradient(to right, transparent, #d1d5db, transparent)",
-                    }}
-                    animate={
-                      hoveredIndex === idx
-                        ? {
-                            width: "100px",
-                          }
-                        : { width: "48px" }
-                    }
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  />
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-        
-        {/* Decorative elements - dark mode specific */}
+        {/* Premium dark mode background effects */}
         {isDarkMode ? (
           <>
-            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-gray-800/20 to-gray-900/20 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-br from-gray-800/20 to-gray-900/20 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl" />
+            {/* Animated grid background for dark mode */}
+            <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.1)_50%,transparent_75%,transparent_100%)] bg-[length:15px_15px] opacity-10" />
+            
+            {/* Floating particles */}
+            <div className="absolute inset-0 overflow-hidden">
+              {[...Array(10)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-[1px] h-[1px] bg-white/20 rounded-full"
+                  initial={{ 
+                    x: Math.random() * 100 + '%', 
+                    y: Math.random() * 100 + '%',
+                    opacity: 0 
+                  }}
+                  animate={{ 
+                    y: [null, `-${Math.random() * 50}px`],
+                    opacity: [0, 0.3, 0]
+                  }}
+                  transition={{
+                    duration: 2 + Math.random() * 3,
+                    repeat: Infinity,
+                    delay: Math.random() * 2,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+            </div>
+            
+            {/* Corner accents */}
+            <div className="absolute top-0 left-0 w-48 h-48 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent rounded-full blur-2xl" />
+            <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-tl from-purple-500/5 via-transparent to-transparent rounded-full blur-2xl" />
           </>
         ) : (
           <>
-            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500/10 to-cyan-500/10 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl" />
+            {/* Light mode background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50/50 to-white" />
+            <div className="absolute top-0 left-0 w-48 h-48 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent rounded-full blur-2xl" />
+            <div className="absolute bottom-0 right-0 w-48 h-48 bg-gradient-to-tl from-cyan-500/5 via-transparent to-transparent rounded-full blur-2xl" />
           </>
         )}
+        
+        {/* Content */}
+        <div className="relative z-10">
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className={`text-4xl font-bold mb-10 text-center ${
+              isDarkMode 
+                ? "bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent"
+                : "bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent"
+            }`}
+          >
+            Skills & Technologies
+          </motion.h2>
+          
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-30px" }}
+            className="grid grid-cols-3 md:grid-cols-5 gap-4"
+          >
+            {skills.map((skill, idx) => {
+              const themeColors = getColorForTheme(skill);
+              const skillLogo = getLogoForTheme(skill);
+              
+              return (
+                <motion.div
+                  key={idx}
+                  variants={itemVariants}
+                  whileHover="hover"
+                  initial="initial"
+                  animate="initial"
+                  custom={idx}
+                  onMouseEnter={() => setHoveredIndex(idx)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="relative"
+                >
+                  {/* Premium glow effect */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={hoveredIndex === idx ? 
+                      { opacity: 1, scale: 1 } : 
+                      { opacity: 0, scale: 0.8 }
+                    }
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 rounded-2xl blur-lg"
+                    style={{
+                      background: `radial-gradient(circle at center, ${themeColors.glowColor} 0%, transparent 70%)`,
+                    }}
+                  />
+                  
+                  {/* Main card - Premium dark mode styling */}
+                  <div className={`
+                    relative flex flex-col items-center gap-4 p-5 rounded-2xl 
+                    backdrop-blur-sm transition-all duration-300 overflow-hidden 
+                    group cursor-pointer border
+                    ${isDarkMode 
+                      ? `bg-gradient-to-b from-gray-900/40 via-gray-900/60 to-black/80 
+                         border-gray-800/30 hover:border-gray-700/50
+                         shadow-lg shadow-black/20` 
+                      : `bg-gradient-to-b from-white/80 via-white to-gray-50/80
+                         border-gray-200/30 hover:border-gray-300/50
+                         shadow-lg shadow-gray-200/20`
+                    }
+                  `}
+                    style={{
+                      transform: hoveredIndex === idx ? 'translateZ(5px)' : 'translateZ(0)',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
+                  >
+                    {/* Shimmer effect */}
+                    <div className={`absolute inset-0 bg-gradient-to-r from-transparent ${
+                      isDarkMode 
+                        ? 'via-white/[0.02]' 
+                        : 'via-black/[0.01]'
+                    } to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700`} />
+                    
+                    {/* Icon container with premium 3D effect */}
+                    <motion.div
+                      variants={iconVariants}
+                      custom={idx}
+                      className={`
+                        relative w-16 h-16 flex items-center justify-center 
+                        rounded-2xl border shadow-xl transition-all duration-300
+                        ${isDarkMode
+                          ? `bg-gradient-to-br from-gray-900/80 to-black 
+                             border-gray-800/60 hover:border-gray-700`
+                          : `bg-gradient-to-br from-white to-gray-100 
+                             border-gray-300/60 hover:border-gray-400`
+                        }
+                      `}
+                      style={{
+                        boxShadow: hoveredIndex === idx 
+                          ? `0 15px 40px -10px ${themeColors.shadowColor},
+                             inset 0 1px 0 0 ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.8)'}`
+                          : `inset 0 1px 0 0 ${isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.8)'}`,
+                      }}
+                    >
+                      {/* Pulsing ring effect */}
+                      {hoveredIndex === idx && (
+                        <motion.div
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          animate={{ scale: 1.3, opacity: 0 }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            repeatType: "loop",
+                          }}
+                          className="absolute inset-[-2px] rounded-2xl border"
+                          style={{ 
+                            borderColor: isDarkMode 
+                              ? skill.glowColor || themeColors.glowColor
+                              : skill.color 
+                          }}
+                        />
+                      )}
+                      
+                      {/* Special handling for Next.js and Express.js in dark mode */}
+                      {(skill.name === "Next.js" || skill.name === "Express.js") && isDarkMode ? (
+                        <div className="relative w-full h-full flex items-center justify-center">
+                          <div className={`absolute inset-0 rounded-2xl ${
+                            skill.name === "Next.js" 
+                              ? "bg-gradient-to-br from-gray-900 to-black" 
+                              : "bg-gradient-to-br from-gray-800 to-gray-900"
+                          }`} />
+                          <img
+                            src={skillLogo}
+                            alt={skill.name}
+                            className="w-10 h-10 object-contain z-10 relative"
+                            style={{
+                              filter: isDarkMode && skill.name === "Express.js" 
+                                ? "invert(1) brightness(1.5)"
+                                : "invert(0)"
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <img
+                          src={skillLogo}
+                          alt={skill.name}
+                          className="w-10 h-10 object-contain z-10"
+                        />
+                      )}
+                      
+                      {/* Hover glow effect */}
+                      {hoveredIndex === idx && (
+                        <div className="absolute inset-0 rounded-2xl"
+                          style={{
+                            background: `radial-gradient(circle at center, ${themeColors.cardGlow} 0%, transparent 70%)`,
+                          }}
+                        />
+                      )}
+                    </motion.div>
+                    
+                    {/* Skill name with premium typography */}
+                    <motion.div
+                      variants={skillNameVariants}
+                      className="relative"
+                    >
+                      <span className={`
+                        font-semibold text-sm tracking-tight text-center block
+                        ${isDarkMode 
+                          ? "bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent"
+                          : "bg-gradient-to-r from-gray-700 to-gray-500 bg-clip-text text-transparent"
+                        }
+                      `}>
+                        {skill.name}
+                      </span>
+                      
+                      {/* Subtle underline */}
+                      <motion.div
+                        className="h-0.5 rounded-full mt-1"
+                        initial={{ width: "0%" }}
+                        animate={hoveredIndex === idx ? { width: "100%" } : { width: "0%" }}
+                        transition={{ duration: 0.3 }}
+                        style={{
+                          background: isDarkMode
+                            ? `linear-gradient(to right, transparent, ${skill.glowColor || '#ffffff'}, transparent)`
+                            : `linear-gradient(to right, transparent, ${skill.color}, transparent)`,
+                        }}
+                      />
+                    </motion.div>
+                    
+                    {/* Floating particles on hover */}
+                    {hoveredIndex === idx && isDarkMode && (
+                      <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                        {[...Array(5)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className="absolute w-[1px] h-[1px] rounded-full"
+                            style={{ backgroundColor: skill.glowColor || '#ffffff' }}
+                            initial={{ 
+                              x: Math.random() * 100 + '%', 
+                              y: '120%',
+                              opacity: 0 
+                            }}
+                            animate={{ 
+                              y: ['120%', '-20%'],
+                              opacity: [0, 0.6, 0]
+                            }}
+                            transition={{
+                              duration: 1 + Math.random(),
+                              ease: "easeOut"
+                            }}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+          
+          {/* Technology stack labels */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            viewport={{ once: true }}
+            className="mt-10 flex flex-wrap justify-center gap-4"
+          >
+            <div className={`px-5 py-2 rounded-full border text-xs font-medium ${
+              isDarkMode 
+                ? "bg-black/20 border-gray-800/30 text-gray-300"
+                : "bg-white/50 border-gray-300/30 text-gray-700"
+            }`}>
+              Full-Stack
+            </div>
+            <div className={`px-5 py-2 rounded-full border text-xs font-medium ${
+              isDarkMode 
+                ? "bg-black/20 border-gray-800/30 text-gray-300"
+                : "bg-white/50 border-gray-300/30 text-gray-700"
+            }`}>
+              Modern Web
+            </div>
+            <div className={`px-5 py-2 rounded-full border text-xs font-medium ${
+              isDarkMode 
+                ? "bg-black/20 border-gray-800/30 text-gray-300"
+                : "bg-white/50 border-gray-300/30 text-gray-700"
+            }`}>
+              State Management
+            </div>
+          </motion.div>
+        </div>
       </motion.div>
     </section>
   );

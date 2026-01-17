@@ -10,19 +10,18 @@ const footerSections = [
     links: [
       { name: "Home", href: "/" },
       { name: "Blog", href: "/blog" },
-      { name: "Dashboard", href: "/dashboard" },
+      
       { name: "Projects", href: "/projects" },
-      { name: "Links", href: "/links" },
+      
     ],
   },
   {
     title: "Social",
     links: [
-      { name: "GitHub", href: "https://github.com" },
-      { name: "LinkedIn", href: "https://linkedin.com" },
-      { name: "Twitter", href: "https://twitter.com" },
-      { name: "Instagram", href: "https://instagram.com" },
-      { name: "Freelancing", href: "/freelancing" },
+      { name: "GitHub", href: "https://github.com/NikhilPatil2727" },
+      { name: "LinkedIn", href: "https://www.linkedin.com/in/nikhil-patil-967986251/" },
+      { name: "Twitter", href: "https://x.com/nikhil_patil27" },
+      
     ],
   },
   {
@@ -31,10 +30,7 @@ const footerSections = [
       { name: "Snippets", href: "/snippets" },
       { name: "Tweets", href: "/tweets" },
       { name: "Resources", href: "/resources" },
-      { name: "Live Demos", href: "/demos" },
-      { name: "freeCodeCamp", href: "https://freecodecamp.org" },
-      { name: "Box Shadows", href: "/box-shadows" },
-      { name: "Design Inspiration", href: "/design-inspiration" },
+      
     ],
   },
 ];
@@ -43,7 +39,7 @@ const footerSections = [
 export default function Footer() {
   return (
     <footer className="border-t border-gray-200 dark:border-gray-800 py-10 md:py-12">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-3xl mx-auto px-4">
         
         {/* Sections */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
@@ -77,7 +73,7 @@ export default function Footer() {
             <span>Find me on</span>
 
             <Link
-              href="https://x.com/yourhandle"
+              href="https://x.com/nikhil_patil27"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full hover:bg-accent transition flex items-center"
@@ -94,7 +90,7 @@ export default function Footer() {
             <span>and</span>
 
             <Link
-              href="https://peerlist.io/your-username"
+              href="https://peerlist.io/nikhilpa02436"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full hover:bg-accent transition flex items-center"
@@ -110,7 +106,7 @@ export default function Footer() {
           </div>
 
           <p className="text-center md:text-left">
-            Portfolio inspired by Lee Rob
+            Portfolio inspired by Manu Arora
           </p>
         </div>
 
