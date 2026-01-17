@@ -10,18 +10,19 @@ const footerSections = [
     links: [
       { name: "Home", href: "/" },
       { name: "Blog", href: "/blog" },
-      
+
       { name: "Projects", href: "/projects" },
-      
     ],
   },
   {
     title: "Social",
     links: [
       { name: "GitHub", href: "https://github.com/NikhilPatil2727" },
-      { name: "LinkedIn", href: "https://www.linkedin.com/in/nikhil-patil-967986251/" },
+      {
+        name: "LinkedIn",
+        href: "https://www.linkedin.com/in/nikhil-patil-967986251/",
+      },
       { name: "Twitter", href: "https://x.com/nikhil_patil27" },
-      
     ],
   },
   {
@@ -30,24 +31,19 @@ const footerSections = [
       { name: "Snippets", href: "/snippets" },
       { name: "Tweets", href: "/tweets" },
       { name: "Resources", href: "/resources" },
-      
     ],
   },
 ];
-
 
 export default function Footer() {
   return (
     <footer className="border-t border-gray-200 dark:border-gray-800 py-10 md:py-12">
       <div className="max-w-3xl mx-auto px-4">
-        
         {/* Sections */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="font-semibold text-lg mb-4">
-                {section.title}
-              </h3>
+              <h3 className="font-semibold text-lg mb-4">{section.title}</h3>
 
               <ul className="space-y-3">
                 {section.links.map((link) => (
@@ -79,11 +75,12 @@ export default function Footer() {
               className="p-2 rounded-full hover:bg-accent transition flex items-center"
             >
               <Image
-                src="/x.png"
+                src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg"
                 alt="X (Twitter)"
-                width={25}
-                height={25}
+                width={17}
+                height={20}
                 className="dark:invert"
+                priority
               />
             </Link>
 
@@ -109,9 +106,7 @@ export default function Footer() {
             Portfolio inspired by Manu Arora
           </p>
         </div>
-
       </div>
     </footer>
   );
 }
-
