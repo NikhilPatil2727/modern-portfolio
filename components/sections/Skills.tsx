@@ -1,7 +1,7 @@
 "use client";
 
 import { Skill } from "@/types";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useState, useEffect } from "react";
 
 const skills: Skill[] = [
@@ -132,7 +132,7 @@ export default function Skills() {
     };
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -143,7 +143,7 @@ export default function Skills() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -165,18 +165,18 @@ export default function Skills() {
     },
   };
 
-  const iconVariants = {
+  const iconVariants: Variants = {
     initial: { rotate: 0 },
-    hover: (index: number) => ({
+    hover: {
       rotate: [0, -5, 5, -5, 0],
       transition: {
         duration: 0.6,
         ease: "easeInOut",
       },
-    }),
+    },
   };
 
-  const skillNameVariants = {
+  const skillNameVariants: Variants = {
     initial: { scale: 1 },
     hover: { 
       scale: 1.05,
@@ -316,7 +316,6 @@ export default function Skills() {
                   whileHover="hover"
                   initial="initial"
                   animate="initial"
-                  custom={idx}
                   onMouseEnter={() => setHoveredIndex(idx)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   className="relative"
@@ -364,7 +363,6 @@ export default function Skills() {
                     {/* Icon container with premium 3D effect */}
                     <motion.div
                       variants={iconVariants}
-                      custom={idx}
                       className={`
                         relative w-16 h-16 flex items-center justify-center 
                         rounded-2xl border shadow-xl transition-all duration-300
