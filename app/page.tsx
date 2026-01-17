@@ -1,18 +1,13 @@
 import Hero from '@/components/sections/Hero';
 import Skills from '@/components/sections/Skills';
-
 import Projects from '@/components/sections/Projects';
-
 
 export default function Home() {
   return (
-    <>
-      <Hero/>
+    <main className="space-y-0">
+      <Hero />
       <Skills/>
-      {/* <RecentBlogs /> */}
-      <Projects limit={4}/>
-      {/* <Contact/>
-      <SpotifyStatus/> */}
-    </>
+      <Projects limit={4} />
+    </main>
   );
 }

@@ -11,6 +11,8 @@ export interface Skill {
   name: string;
   logo: string;
   color: string;
+  darkLogo: string;
+  glowColor: string;
 }
 
 export interface Blog {
