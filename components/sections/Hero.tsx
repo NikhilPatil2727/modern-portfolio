@@ -2,83 +2,105 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import profilePic from "../../public/Nikhil_image.png"; // Import the file
+import profilePic from "../../public/Nikhil_image.png";
+import { HoverBorderGradient } from "../ui/hover-border-gradient";
+import { NoiseBackground } from "@/components/ui/noise-background";
+import { cn } from "@/lib/utils";
 
 export default function Hero() {
   return (
-    <section className="relative  max-w-4xl mx-auto px-6 py-20 md:py-32">
-      <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12">
+    <section className="relative max-w-3xl mx-auto px-6 py-24 md:py-32">
+      <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-14">
         {/* Left Content */}
         <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/70">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
             Nikhil Patil
           </h1>
 
-          <div className="space-y-4">
-            <p className="text-xl md:text-2xl font-medium text-muted-foreground">
-              Building{" "}
-              <span className="text-foreground border-b-2 border-primary/50">
-                X Code Reviewer AI
-              </span>{" "}
-              <span className="text-sm text-muted-foreground/70">
-                (VS Code Extension)
-              </span>
-              <span className="mx-2 text-muted-foreground/40">&</span>
-              scalable MERN solutions.
-            </p>
-
-            <p className="max-w-[620px] text-lg text-muted-foreground leading-relaxed">
-              Fresher MERN Stack Developer building real-world developer tools
-              like{" "}
-              <span className="text-foreground font-medium">
-                X Code Reviewer AI (VS Code Extension)
-              </span>{" "}
-              and{" "}
-              <span className="text-foreground font-medium">X Visualizer</span>,
-              focused on AI-assisted development, system design fundamentals,
-              and modern JavaScript frameworks.
-            </p>
-          </div>
-
-          <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-4">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-6 leading-relaxed flex flex-wrap gap-2 justify-center md:justify-start">
+            Building
             <Link
-              href="https://twitter.com/yourhandle"
-              className="px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:opacity-90 transition-all shadow-lg"
+              href="https://marketplace.visualstudio.com/items?itemName=nikhil27.x-code-reviewer-ai"
+              className="inline-flex items-center font-semibold text-foreground bg-muted px-2 py-1 rounded whitespace-nowrap hover:underline"
             >
-              Follow on Twitter
+              X Code Reviewer AI
+            </Link>
+            ,
+            <Link
+              href="https://www.linkedin.com/feed/update/urn:li:activity:7414210655811194880/"
+              className="inline-flex items-center font-semibold text-foreground bg-muted px-2 py-1 rounded whitespace-nowrap hover:underline"
+            >
+              X Visualizer
+            </Link>
+            & other cool things
+          </p>
+
+          <p className="max-w-xl text-lg text-muted-foreground leading-relaxed mx-auto md:mx-0">
+            Fresher MERN Stack Developer focused on scalable web apps and Gen-AI
+            powered developer tools.
+          </p>
+
+          {/* Buttons */}
+          <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
+            {/* Twitter */}
+            <Link
+              href="https://x.com/nikhil_patil27"
+              target="_blank"
+              className="inline-block"
+            >
+              <NoiseBackground
+                containerClassName="rounded-full p-[2px]"
+                gradientColors={[
+                  "rgb(29,161,242)",
+                  "rgb(100,150,255)",
+                  "rgb(29,161,242)",
+                ]}
+              >
+                <div className="rounded-full bg-background px-6 py-3 text-foreground font-medium shadow-sm transition active:scale-95">
+                  Twitter →
+                </div>
+              </NoiseBackground>
             </Link>
 
-            <button className="px-6 py-3 rounded-full border border-input bg-background hover:bg-accent transition-all">
-              View Projects
-            </button>
+            {/* Projects */}
+            <Link href="/projects" className="inline-block">
+              <HoverBorderGradient
+                containerClassName="rounded-full"
+                className="px-6 py-3 bg-background text-foreground font-medium cursor-pointer"
+              >
+                Projects
+              </HoverBorderGradient>
+            </Link>
           </div>
         </div>
 
-        {/* Right Side: Professional Image Section */}
-        <div className="relative group">
-          {/* Shadcn-style decorative background glow */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+        {/* Right Image Section */}
+        <div className="relative w-[220px] h-[220px] flex items-center justify-center">
+          {/* Grid background */}
+          <div
+            className={cn(
+              "absolute inset-0 rounded-2xl",
+              "[background-size:40px_40px]",
+              "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
+              "dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]"
+            )}
+          />
 
-          <div className="relative flex items-center justify-center bg-card border border-border p-2 rounded-2xl shadow-2xl overflow-hidden">
-            <div className="relative w-28 h-28 md:w-34 md:h-34 rounded-xl overflow-hidden bg-muted">
-              {/* Replace '/profile.jpg' with your actual image path */}
-              <Image
-                src={profilePic}
-                alt="Manu Arora - Full Stack Developer"
-                fill
-                className="object-cover transform group-hover:scale-105 transition-transform duration-500"
-                priority
-              />
-              {/* Overlay for depth */}
-              <div className="absolute inset-0 ring-1 ring-inset ring-black/10 dark:ring-white/10 rounded-xl" />
-            </div>
-          </div>
+          {/* Radial fade */}
+          <div className="pointer-events-none absolute inset-0 rounded-2xl bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_35%,black)]" />
 
-          {/* Floating Badge (Optional) */}
-          <div className="absolute -bottom-4 -right-4 bg-background border border-border px-4 py-2 rounded-lg shadow-xl hidden md:block">
-            <p className="text-xs font-bold uppercase tracking-wider text-primary">
-              Available for Hire
-            </p>
+          {/* Blue Glow */}
+          <div className="absolute w-40 h-40 rounded-full bg-blue-500/40 blur-3xl" />
+
+          {/* Image */}
+          <div className="relative z-10 w-24 h-24 md:w-28 md:h-28 rounded-xl overflow-hidden shadow-xl">
+            <Image
+              src={profilePic}
+              alt="Nikhil Patil"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
         </div>
       </div>

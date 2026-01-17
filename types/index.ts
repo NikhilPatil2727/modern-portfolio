@@ -12,6 +12,7 @@ export interface Skill {
   logo: string;
   color: string;
   darkLogo: string;
+  glowColor: string;
 }
 
 export interface Blog {
