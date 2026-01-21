@@ -7,7 +7,7 @@ export default function Home() {
     <main className="space-y-0">
       <Hero />
       <Skills/>
-      <Projects limit={4} />
+      <Projects limit={3} />
     </main>
   );
 }
