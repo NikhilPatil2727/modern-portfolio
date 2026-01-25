@@ -7,7 +7,7 @@ export default function ProjectsPage() {
         All Projects
       </h1>
 
-      <Projects />
+      <Projects showHeader={false}  />
     </div>
   );
 }
