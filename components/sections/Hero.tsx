@@ -13,7 +13,7 @@ export default function Hero() {
       <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-14">
         {/* Left Content */}
         <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
+          <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/70 tracking-tight mb-4 ">
             Nikhil Patil
           </h1>
 
