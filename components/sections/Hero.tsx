@@ -21,9 +21,10 @@ export default function Hero() {
             Building
             <Link
               href="https://marketplace.visualstudio.com/items?itemName=nikhil27.x-code-reviewer-ai"
-              className="inline-flex items-center font-semibold text-foreground bg-muted px-2 py-1 rounded whitespace-nowrap hover:underline"
+              className="inline-flex flex-wrap items-baseline gap-1.5 font-semibold text-foreground bg-muted px-2 py-1 rounded hover:underline"
             >
               X Code Reviewer AI
+              <span className="text-sm font-medium tracking-tight text-foreground/80">— (own VS Code extension)</span>
             </Link>
             ,
             <Link
