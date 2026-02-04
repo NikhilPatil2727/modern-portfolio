@@ -17,7 +17,7 @@ export default function Hero() {
             Nikhil Patil
           </h1>
 
-          <p className="text-xl md:text-2xl text-muted-foreground mb-6 leading-relaxed flex flex-wrap gap-2 justify-center md:justify-start">
+          <p className="text-xl md:text-2xl font-sans text-muted-foreground mb-6 leading-relaxed flex flex-wrap gap-2 justify-center md:justify-start">
             Building
             <Link
               href="https://marketplace.visualstudio.com/items?itemName=nikhil27.x-code-reviewer-ai"
@@ -26,7 +26,7 @@ export default function Hero() {
               X Code Reviewer AI
               <span className="text-sm font-medium tracking-tight text-foreground/80">— (own VS Code extension)</span>
             </Link>
-            ,
+            
             <Link
               href="https://www.linkedin.com/feed/update/urn:li:activity:7414210655811194880/"
               className="inline-flex items-center font-semibold text-foreground bg-muted px-2 py-1 rounded whitespace-nowrap hover:underline"
