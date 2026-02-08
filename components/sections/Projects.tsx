@@ -37,6 +37,16 @@ const projects: Project[] = [
       "https://www.linkedin.com/feed/update/urn:li:activity:7414210655811194880/",
     github: "https://github.com/NikhilPatil2727",
   },
+  {
+    name: "PostGenius",
+    image: "/Postgenius.png",
+    description:
+      "Interactive DSA Visualizer with Framer Motion animations for sorting, trees, and graph algorithms.",
+    tags: ["Next.js", "React.js", "Node.js", "Tailwind CSS", "TypeScript"],
+    liveLink:
+      "https://post-genius-fswq.vercel.app/",
+    github: "https://github.com/NikhilPatil2727",
+  },
 ];
 
 /* ---------------- PROJECT CARD ---------------- */
