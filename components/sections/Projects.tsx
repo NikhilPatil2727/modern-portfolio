@@ -38,13 +38,13 @@ const projects: Project[] = [
     github: "https://github.com/NikhilPatil2727",
   },
   {
-    name: "PostGenius",
-    image: "/Postgenius.png",
+    name: "PostBloom",
+    image: "/PostBloom.png",
     description:
-      "Interactive DSA Visualizer with Framer Motion animations for sorting, trees, and graph algorithms.",
+      "AI-powered content repurposing platform that transforms a single piece of content into optimized posts for Instagram, Twitter (X), LinkedIn, and Peerlist in one click.",
     tags: ["Next.js", "React.js", "Node.js", "Tailwind CSS", "TypeScript"],
     liveLink:
-      "https://post-genius-fswq.vercel.app/",
+      "https://postbloom-chi.vercel.app/",
     github: "https://github.com/NikhilPatil2727",
   },
 ];
