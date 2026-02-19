@@ -22,6 +22,8 @@ export default function Hero() {
             <Link
               href="https://marketplace.visualstudio.com/items?itemName=nikhil27.x-code-reviewer-ai"
               className="inline-flex flex-wrap items-baseline gap-1.5 font-semibold text-foreground bg-muted px-2 py-1 rounded hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               X Code Reviewer AI
               <span className="text-sm font-medium tracking-tight text-foreground/80">— (own VS Code extension)</span>
@@ -30,6 +32,8 @@ export default function Hero() {
             <Link
               href="https://www.linkedin.com/feed/update/urn:li:activity:7414210655811194880/"
               className="inline-flex items-center font-semibold text-foreground bg-muted px-2 py-1 rounded whitespace-nowrap hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               X Visualizer
             </Link>
