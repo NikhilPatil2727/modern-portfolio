@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { Project } from "@/types";
@@ -78,18 +79,18 @@ const ProjectCard = ({ project }: { project: Project }) => {
         x.set(0);
         y.set(0);
       }}
-      className="relative group h-[450px] w-full cursor-pointer perspective-1000"
+      className="relative group h-[500px] w-full cursor-pointer perspective-1000"
     >
       {/* Background + Border + Glow */}
       <div
         className="
           absolute inset-0 rounded-[32px] overflow-hidden
-          bg-white dark:bg-black
+          bg-white/95 dark:bg-[#050505]
           border border-gray-200 dark:border-white/20
           shadow-sm transition-all duration-500
 
           group-hover:border-blue-500/30
-          group-hover:shadow-2xl
+          group-hover:-translate-y-1 group-hover:shadow-2xl
 
           dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]
           dark:group-hover:shadow-[0_0_45px_-10px_rgba(59,130,246,0.6)]
@@ -106,12 +107,12 @@ const ProjectCard = ({ project }: { project: Project }) => {
       />
 
       {/* Content */}
-      <div className="relative h-full w-full p-4 flex flex-col">
+      <div className="relative flex h-full w-full flex-col p-5">
         {/* Image */}
-        <div className="relative h-64 w-full rounded-2xl overflow-hidden mb-6 z-10">
+        <div className="relative z-10 mb-6 h-72 w-full overflow-hidden rounded-[24px]">
           <motion.div
             style={{ x: imgX }}
-            animate={{ scale: isHovered ? 1.15 : 1.05 }}
+            animate={{ scale: isHovered ? 1.12 : 1.03 }}
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
             className="w-full h-full"
           >
@@ -131,48 +132,48 @@ const ProjectCard = ({ project }: { project: Project }) => {
         </div>
 
         {/* Text */}
-        <motion.div style={{ x: textX }} className="px-2 z-20">
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {project.name}
-            </h3>
-            <div className="p-2 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
+        <motion.div style={{ x: textX }} className="z-20 flex flex-1 flex-col px-2">
+          <div className="mb-3 flex items-start justify-between gap-4">
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {project.name}
+              </h3>
+              <p className="mt-3 line-clamp-3 text-sm leading-6 text-gray-500 dark:text-gray-400">
+                {project.description}
+              </p>
+            </div>
+            
+            <div className="mt-1 rounded-full bg-blue-500 p-2 opacity-70 transition-all group-hover:translate-x-1 group-hover:opacity-100">
               <ArrowRight className="w-4 h-4 text-white" />
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="mb-5 flex flex-wrap gap-2">
             {project.tags.slice(0, 3).map((tag, i) => (
               <span
                 key={i}
-                className="text-[10px] font-bold uppercase tracking-widest text-blue-500"
+                className="rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-blue-600 dark:border-blue-500/20 dark:bg-blue-500/10 dark:text-blue-300"
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          {/* Expand */}
           <motion.div
             initial={false}
             animate={{
-              height: isHovered ? "auto" : 0,
-              opacity: isHovered ? 1 : 0,
+              y: isHovered ? 0 : 10,
+              opacity: isHovered ? 1 : 0.92,
             }}
-            className="overflow-hidden"
+            className="mt-auto"
           >
-            <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-              {project.description}
-            </p>
-
-            <div className="flex gap-3 pb-4">
+            <div className="flex gap-3 pb-2">
               <a
                 href={project.liveLink}
                 target="_blank"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl
-                bg-gray-900 dark:bg-white
-                text-white dark:text-gray-900
-                text-xs font-bold hover:scale-[1.02] transition-transform"
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl
+                bg-gray-900 py-3 text-xs font-bold text-white transition-transform hover:scale-[1.02]
+                dark:bg-white dark:text-gray-900"
               >
                 <ExternalLink className="w-3 h-3" /> View Site
               </a>
@@ -180,9 +181,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
               <a
                 href={project.github}
                 target="_blank"
-                className="p-3 rounded-xl border border-gray-200 dark:border-white/10
-                text-gray-600 dark:text-gray-400
-                hover:bg-gray-50 dark:hover:bg-white/5"
+                className="rounded-xl border border-gray-200 p-3 text-gray-600 transition
+                hover:bg-gray-50 dark:border-white/10 dark:text-gray-400 dark:hover:bg-white/5"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -231,11 +231,23 @@ export default function Projects({
       )}
 
       {/* PROJECT CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3">
         {displayedProjects.map((project, idx) => (
           <ProjectCard key={idx} project={project} />
         ))}
       </div>
+
+      {limit ? (
+        <div className="mt-12 flex justify-center">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-6 py-3 text-sm font-semibold tracking-[0.25em] text-gray-800 transition hover:border-blue-500 hover:text-blue-600 dark:border-white/15 dark:text-white dark:hover:border-blue-500 dark:hover:text-blue-400"
+          >
+            MORE
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      ) : null}
     </section>
   );
 }
