@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Github } from "lucide-react";
 
 import Image from "next/image";
 
@@ -67,6 +68,16 @@ export default function Footer() {
         <div className="text-gray-600 dark:text-gray-400 text-sm text-center md:text-left">
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-2">
             <span>Find me on</span>
+
+            <Link
+              href="https://github.com/NikhilPatil2727"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full hover:bg-accent transition flex items-center"
+              aria-label="GitHub"
+            >
+              <Github className="h-[18px] w-[18px]" />
+            </Link>
 
             <Link
               href="https://x.com/nikhil_patil27"
