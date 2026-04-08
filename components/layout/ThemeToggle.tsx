@@ -1,24 +1,18 @@
 'use client';
 
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
 
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-
   return (
-    <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-full 
-                 hover:bg-gray-200 dark:hover:bg-gray-700 
-                 transition cursor-pointer"
-      aria-label="Toggle theme"
-    >
-      {theme === 'dark' ? (
-        <Sun className="w-5 h-5 text-yellow-400" />
-      ) : (
-        <Moon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-      )}
-    </button>
+    <AnimatedThemeToggler
+      className="
+        flex h-8 w-8 items-center justify-center rounded-full
+        bg-gray-100 text-gray-700
+        hover:bg-gray-200
+        dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800
+        transition-colors duration-150
+        focus:outline-none focus:ring-1 focus:ring-blue-500/50
+      "
+    />
   );
 }

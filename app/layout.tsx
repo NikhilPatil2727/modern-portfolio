@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { SmoothCursor } from "@/components/ui/smooth-cursor";
 
 
 const geistSans = Geist({
@@ -38,6 +39,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <SmoothCursor />
              <Header/>
             {children}
              <Footer/>
