@@ -1,10 +1,14 @@
 export interface Project {
-  name: string;
+  title: string;
+  dates: string;
   image: string;
+  video?: string;
   description: string;
-  tags: string[];
-  liveLink: string;
-  github: string;
+  links: {
+    type: string;
+    url: string;
+  }[];
+  technologies: string[];
 }
 
 export interface Skill {
