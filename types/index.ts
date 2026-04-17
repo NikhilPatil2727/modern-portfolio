@@ -2,6 +2,7 @@ export interface Project {
   title: string;
   dates: string;
   image: string;
+  video?: string;
   description: string;
   links: {
     type: string;

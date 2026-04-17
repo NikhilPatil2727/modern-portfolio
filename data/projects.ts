@@ -7,6 +7,7 @@ export const projects: Project[] = [
     description:
       "AI-powered content repurposing platform that turns a single idea into polished posts for X, LinkedIn, Instagram, and Peerlist with a fast creator workflow.",
     image: "/PostBloom.png",
+    video: "/NewHomePageUpdate.mp4",
     links: [
       { type: "Website", url: "https://postbloom-chi.vercel.app/" },
       { type: "Source", url: "https://github.com/NikhilPatil2727/postbloom" },
@@ -19,6 +20,7 @@ export const projects: Project[] = [
     description:
       "Full-stack automated website builder with real-time preview, modular page generation, and a clean editing experience for shipping landing pages quickly.",
     image: "/Website.png",
+    video: "/TheWebsiteThatBuild.mp4",
     links: [
       {
         type: "Website",
@@ -49,6 +51,7 @@ export const projects: Project[] = [
     description:
       "Interactive data structures and algorithms visualizer with motion-rich demos for sorting, trees, and graph concepts designed for fast understanding.",
     image: "/DSA.png",
+    video: "/Entire screen 1-5-2026 09-39-03.mp4",
     links: [
       {
         type: "Website",

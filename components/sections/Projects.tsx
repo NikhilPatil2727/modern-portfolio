@@ -9,17 +9,33 @@ import type { Project } from "@/types";
 
 function ProjectCard({ project }: { project: Project }) {
   const primaryLink = project.links[0];
+  const hasVideo = Boolean(project.video);
 
   return (
     <Card className="group overflow-hidden rounded-2xl border border-border bg-card py-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-foreground/20 hover:shadow-xl dark:hover:border-white/20">
       <div className="relative aspect-video overflow-hidden border-b border-border bg-muted/40">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          sizes="(min-width: 768px) 50vw, 100vw"
-        />
+        {hasVideo ? (
+          <video
+            key={project.video}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={project.image}
+          >
+            <source src={project.video} type="video/mp4" />
+          </video>
+        ) : (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            sizes="(min-width: 768px) 50vw, 100vw"
+          />
+        )}
 
         {primaryLink ? (
           <div className="absolute right-4 top-4 flex flex-wrap justify-end gap-2">
@@ -88,7 +104,14 @@ export default function Projects({
   limit?: number;
   showHeader?: boolean;
 }) {
-  const displayedProjects = limit ? projects.slice(0, limit) : projects;
+  const featuredProjectTitles = ["PostBloom", "WebCraft", "XVisualizer"];
+  const featuredProjects = featuredProjectTitles
+    .map((title) => projects.find((project) => project.title === title))
+    .filter((project): project is Project => Boolean(project));
+
+  const displayedProjects = limit
+    ? featuredProjects.slice(0, limit)
+    : projects;
 
   return (
     <section className="bg-background px-6 py-24">
