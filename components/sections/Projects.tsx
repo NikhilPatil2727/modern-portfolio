@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Globe } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Globe } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { CoolMode } from "@/components/ui/cool-mode";
 import { projects } from "@/data/projects";
 import type { Project } from "@/types";
 
@@ -134,6 +136,19 @@ export default function Projects({
             <ProjectCard key={project.title} project={project} />
           ))}
         </div>
+
+        {limit ? (
+          <div className="mt-10 flex justify-center">
+            <CoolMode>
+              <Button asChild size="lg" className="rounded-full px-6">
+                <Link href="/projects">
+                  More
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </CoolMode>
+          </div>
+        ) : null}
       </div>
     </section>
   );
