@@ -16,9 +16,9 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full px-4 pt-6">
+    <nav className="sticky top-4 z-50 w-full px-4">
       <div className="mx-auto flex w-full max-w-3xl justify-center">
-        <div className="flex w-full items-center justify-between rounded-2xl border border-dashed border-gray-200 bg-transparent px-6 py-3">
+        <div className="flex w-full items-center justify-between rounded-2xl border border-dashed border-gray-200 bg-white/65 px-6 py-3 backdrop-blur-sm dark:border-white/15 dark:bg-black/20">
           <Link href="/" className="shrink-0">
             <Image
               src="/Nikhil_image.png"
