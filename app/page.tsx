@@ -6,11 +6,25 @@ import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 
+const HOME_INTRO_SESSION_KEY = "home-intro-seen";
+
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+
+    return window.sessionStorage.getItem(HOME_INTRO_SESSION_KEY) !== "true";
+  });
   const [hideIntro, setHideIntro] = useState(false);
 
   useEffect(() => {
+    if (!showIntro) {
+      return;
+    }
+
+    window.sessionStorage.setItem(HOME_INTRO_SESSION_KEY, "true");
+
     const startFadeTimer = window.setTimeout(() => {
       setHideIntro(true);
     }, 2100);
@@ -23,7 +37,7 @@ export default function Home() {
       window.clearTimeout(startFadeTimer);
       window.clearTimeout(finishIntroTimer);
     };
-  }, []);
+  }, [showIntro]);
 
   return (
     <>
