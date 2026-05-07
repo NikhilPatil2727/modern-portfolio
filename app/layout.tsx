@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 
 const geistSans = Geist({
@@ -46,6 +47,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <SmoothCursor />
+             <ScrollProgress className="z-[80] h-1" />
              <Header/>
             {children}
              <Footer/>

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import ConsistentHashingVisualizer from "@/components/blog/ConsistentHashingVisualizer";
-import ReadingProgress from "@/components/blog/ReadingProgress";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -17,7 +16,6 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 export default function ConsistentHashingPage() {
   return (
     <>
-      <ReadingProgress />
       <article className="mx-auto max-w-3xl px-6 py-12 text-foreground animate-in fade-in slide-in-from-bottom-3 duration-500">
         <Button asChild variant="ghost" className="-ml-3 mb-8 rounded-full">
           <Link href="/blog">
