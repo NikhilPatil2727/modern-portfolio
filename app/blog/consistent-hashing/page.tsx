@@ -39,99 +39,179 @@ export default function ConsistentHashingPage() {
         </header>
 
         <div className="space-y-6 text-base leading-8 text-muted-foreground">
+          <SectionTitle>Consistent Hashing — Simple Explanation for Developers</SectionTitle>
+
           <SectionTitle>Why Consistent Hashing Exists</SectionTitle>
 
-          <p>
-            <strong className="font-semibold text-foreground">The Problem It Solves:</strong>{" "}
-            Imagine you have a distributed cache or database with N servers, and you distribute keys
-            using simple modular hashing:
-          </p>
+          <p>Imagine your app has multiple servers.</p>
+
+          <p>Example:</p>
+
+          <ul className="list-disc space-y-2 pl-6">
+            <li>Server A</li>
+            <li>Server B</li>
+            <li>Server C</li>
+          </ul>
+
+          <p>Now you need to decide:</p>
+
+          <blockquote className="rounded-2xl border-l-4 border-foreground bg-muted/40 px-5 py-4 font-medium text-foreground">
+            “Which server should store this user’s data or cache?”
+          </blockquote>
+
+          <p>A simple way is:</p>
 
           <pre className="overflow-x-auto rounded-2xl border border-border bg-muted/50 px-4 py-4 font-mono text-sm leading-7 text-foreground">
             <code>server = hash(key) % N</code>
           </pre>
 
-          <p>
-            This works fine until you add or remove a server. When N changes to N±1, almost every
-            key remaps to a different server, causing a massive cache miss storm or data
-            reshuffling.
+          <p>Where:</p>
+
+          <ul className="list-disc space-y-2 pl-6">
+            <li>
+              <code className="rounded bg-muted px-1.5 py-0.5 text-foreground">key</code> = user
+              id, session id, cache key, etc.
+            </li>
+            <li>
+              <code className="rounded bg-muted px-1.5 py-0.5 text-foreground">N</code> = number of
+              servers
+            </li>
+          </ul>
+
+          <SectionTitle>The Big Problem 🚨</SectionTitle>
+
+          <p>This works fine until servers change.</p>
+
+          <p>Suppose:</p>
+
+          <ul className="list-disc space-y-2 pl-6">
+            <li>You had 3 servers</li>
+            <li>Now you add 1 more server</li>
+          </ul>
+
+          <p>So N changes:</p>
+
+          <p className="rounded-2xl border border-border bg-card px-5 py-4 text-center text-2xl font-semibold text-foreground">
+            3 → 4
           </p>
 
-          <p>Example: With 3 servers → 4 servers, ~75% of keys move.</p>
+          <p>Now almost every key gets mapped to a different server.</p>
+
+          <p>That means:</p>
+
+          <ul className="list-disc space-y-2 pl-6">
+            <li>cache misses increase</li>
+            <li>data reshuffling happens</li>
+            <li>system becomes slow</li>
+            <li>databases/network get overloaded</li>
+          </ul>
+
+          <p>Even adding or removing 1 server can move most of the data.</p>
 
           <SectionTitle>What Consistent Hashing Does</SectionTitle>
 
-          <p>
-            It arranges both servers and keys on a virtual ring (0 to 2³²). A key is assigned to
-            the first server clockwise from its position on the ring.
-          </p>
+          <p>Consistent Hashing solves this problem smartly.</p>
 
           <p>
-            <strong className="font-semibold text-foreground">Key insight:</strong> When a server is
-            added or removed, only ~K/N keys move instead of almost all of them.
+            Instead of directly using{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 text-foreground">% N</code>, it creates
+            a virtual circle (ring).
           </p>
 
-          <ConsistentHashingVisualizer />
-          <p className="-mt-4 text-center text-sm text-muted-foreground">
-            Click Next to walk through each step →
-          </p>
+          <p>Both:</p>
 
-          <SectionTitle>Core Benefits</SectionTitle>
+          <ul className="list-disc space-y-2 pl-6">
+            <li>servers</li>
+            <li>keys</li>
+          </ul>
+
+          <p>are placed on this ring using hashing.</p>
+
+          <p>Then:</p>
+
+          <blockquote className="rounded-2xl border-l-4 border-foreground bg-muted/40 px-5 py-4 font-medium text-foreground">
+            A key belongs to the first server found while moving clockwise.
+          </blockquote>
+
+          <SectionTitle>The Main Benefit</SectionTitle>
+
+          <p>When a server:</p>
+
+          <ul className="list-disc space-y-2 pl-6">
+            <li>joins</li>
+            <li>leaves</li>
+            <li>crashes</li>
+          </ul>
+
+          <p>only a small portion of keys move.</p>
+
+          <p>Not everything.</p>
+
+          <SectionTitle>Example</SectionTitle>
+
+          <p>Adding 1 server:</p>
 
           <div className="overflow-x-auto rounded-2xl border border-border">
-            <table className="w-full min-w-[620px] border-collapse bg-card text-left text-sm">
+            <table className="w-full min-w-[420px] border-collapse bg-card text-left text-sm">
               <thead className="bg-muted/60 text-foreground">
                 <tr>
-                  <th className="border-b border-border px-4 py-3 font-semibold"></th>
-                  <th className="border-b border-border px-4 py-3 font-semibold">
-                    Simple Hashing
-                  </th>
-                  <th className="border-b border-border px-4 py-3 font-semibold">
-                    Consistent Hashing
-                  </th>
+                  <th className="border-b border-border px-4 py-3 font-semibold">Method</th>
+                  <th className="border-b border-border px-4 py-3 font-semibold">Keys Moved</th>
                 </tr>
               </thead>
               <tbody className="text-muted-foreground">
                 <tr>
                   <td className="border-b border-border px-4 py-3 font-medium text-foreground">
-                    Add a server
+                    Simple Hashing
                   </td>
-                  <td className="border-b border-border px-4 py-3">Most keys reshuffle</td>
-                  <td className="border-b border-border px-4 py-3">Only ~1/N keys move</td>
+                  <td className="border-b border-border px-4 py-3">~90%</td>
                 </tr>
                 <tr>
-                  <td className="border-b border-border px-4 py-3 font-medium text-foreground">
-                    Remove a server
-                  </td>
-                  <td className="border-b border-border px-4 py-3">Most keys reshuffle</td>
-                  <td className="border-b border-border px-4 py-3">
-                    Only that server&apos;s keys move
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 font-medium text-foreground">Node failure</td>
-                  <td className="px-4 py-3">Cascading remaps</td>
-                  <td className="px-4 py-3">Minimal disruption</td>
+                  <td className="px-4 py-3 font-medium text-foreground">Consistent Hashing</td>
+                  <td className="px-4 py-3">~10%</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <SectionTitle>Virtual Nodes (Vnodes)</SectionTitle>
-
-          <p>
-            Each physical server maps to multiple points on the ring (e.g. 150 virtual nodes). This
-            ensures even load distribution and smoother rebalancing.
-          </p>
-
-          <SectionTitle>Where It&apos;s Used</SectionTitle>
+          <p>So the system stays:</p>
 
           <ul className="list-disc space-y-2 pl-6">
-            <li>Cassandra &amp; DynamoDB - partition data across nodes</li>
-            <li>Redis Cluster - hash slot distribution</li>
-            <li>CDN routing - map URLs to edge servers</li>
-            <li>Memcached - distributed cache key routing</li>
+            <li>stable</li>
+            <li>fast</li>
+            <li>scalable</li>
           </ul>
+
+          <ConsistentHashingVisualizer />
+
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <p className="font-medium text-foreground">
+              Click Next to walk through each step one by one! Here&apos;s what each step shows you:
+            </p>
+            <ol className="mt-4 list-decimal space-y-3 pl-6">
+              <li>
+                <strong className="text-foreground">Step 1</strong> — The empty ring is created
+                (all hash values 0→360° in a circle)
+              </li>
+              <li>
+                <strong className="text-foreground">Step 2</strong> — Each server gets hashed and
+                placed at a fixed spot on the ring
+              </li>
+              <li>
+                <strong className="text-foreground">Step 3</strong> — Your request key{" "}
+                <code className="rounded bg-muted px-1.5 py-0.5 text-foreground">user:42</code>{" "}
+                gets hashed and lands somewhere on the ring
+              </li>
+              <li>
+                <strong className="text-foreground">Step 4</strong> — Walk clockwise from the
+                key&apos;s position until you hit the first server
+              </li>
+              <li>
+                <strong className="text-foreground">Step 5</strong> — That server (Server B) is the
+                answer — it owns this key
+              </li>
+            </ol>
+          </div>
         </div>
       </article>
     </>
