@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Hero from "@/components/sections/Hero";
 import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
+import RecentBlogs from "@/components/sections/RecentBlogs";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 
 const HOME_INTRO_SESSION_KEY = "home-intro-seen";
@@ -69,6 +70,7 @@ export default function Home() {
         <Hero />
         <Skills />
         <Projects limit={3} />
+        <RecentBlogs />
       </main>
     </>
   );
