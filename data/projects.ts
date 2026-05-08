@@ -61,4 +61,17 @@ export const projects: Project[] = [
     ],
     technologies: ["React", "Framer Motion", "Redux", "Algorithms"],
   },
+  {
+    title: "RAG Chat Application",
+    dates: "Apr 2026 - May 2026",
+    description:
+      "Intelligent Retrieval-Augmented Generation chat application that leverages Vector Database for semantic search, enabling context-aware conversations with your documents.",
+    image: "/RagProject.png",
+    video: "/RagProject.mp4",
+    links: [
+      { type: "Website", url: "https://langchain-rag-system.vercel.app/" },
+      { type: "Source", url: "https://github.com/NikhilPatil2727" },
+    ],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Vector DB", "RAG"],
+  },
 ];
