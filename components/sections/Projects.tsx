@@ -14,18 +14,18 @@ const technologyLogos: Record<string, string> = {
   React: "https://cdn.simpleicons.org/react",
   "Tailwind CSS": "https://cdn.simpleicons.org/tailwindcss",
   OpenAI: "https://cdn.simpleicons.org/openai",
-  Gemini: "https://cdn.simpleicons.org/googlegemini",
+  Gemini: "https://cdn.simpleicons.org/googlegemini/8E75B2",
   Vercel: "https://cdn.simpleicons.org/vercel",
   "Node.js": "https://cdn.simpleicons.org/nodedotjs",
   Express: "https://cdn.simpleicons.org/express",
-  "VS Code API": "https://cdn.simpleicons.org/visualstudiocode",
+  "VS Code API": "/icons8-visual-studio-code-50.png",
   JavaScript: "https://cdn.simpleicons.org/javascript",
-  AI: "https://cdn.simpleicons.org/openai",
+  AI: "https://cdn.simpleicons.org/googlegemini/8E75B2",
   "Developer Tools": "https://cdn.simpleicons.org/postman",
   "Framer Motion": "https://cdn.simpleicons.org/framer",
   Redux: "https://cdn.simpleicons.org/redux",
   Algorithms: "https://cdn.simpleicons.org/leetcode",
-  "Vector DB": "https://cdn.simpleicons.org/pinecone",
+  "Vector DB": "/Pinecone-Icon--Streamline-Svg-Logos.png",
   RAG: "https://cdn.simpleicons.org/langchain",
 };
 
@@ -45,7 +45,7 @@ function TechnologyLogo({ technology }: { technology: string }) {
           width={20}
           height={20}
           unoptimized
-          className="h-5 w-5 object-contain"
+          className="h-5 w-5 object-contain opacity-85 dark:brightness-110"
         />
       ) : (
         <span className="text-xs font-semibold uppercase text-muted-foreground">
