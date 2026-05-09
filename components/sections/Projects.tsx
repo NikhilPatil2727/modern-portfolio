@@ -2,12 +2,59 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Globe } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CoolMode } from "@/components/ui/cool-mode";
 import { projects } from "@/data/projects";
 import type { Project } from "@/types";
+
+const technologyLogos: Record<string, string> = {
+  "Next.js": "https://cdn.simpleicons.org/nextdotjs",
+  TypeScript: "https://cdn.simpleicons.org/typescript",
+  React: "https://cdn.simpleicons.org/react",
+  "Tailwind CSS": "https://cdn.simpleicons.org/tailwindcss",
+  OpenAI: "https://cdn.simpleicons.org/openai",
+  Gemini: "https://cdn.simpleicons.org/googlegemini",
+  Vercel: "https://cdn.simpleicons.org/vercel",
+  "Node.js": "https://cdn.simpleicons.org/nodedotjs",
+  Express: "https://cdn.simpleicons.org/express",
+  "VS Code API": "https://cdn.simpleicons.org/visualstudiocode",
+  JavaScript: "https://cdn.simpleicons.org/javascript",
+  AI: "https://cdn.simpleicons.org/openai",
+  "Developer Tools": "https://cdn.simpleicons.org/postman",
+  "Framer Motion": "https://cdn.simpleicons.org/framer",
+  Redux: "https://cdn.simpleicons.org/redux",
+  Algorithms: "https://cdn.simpleicons.org/leetcode",
+  "Vector DB": "https://cdn.simpleicons.org/pinecone",
+  RAG: "https://cdn.simpleicons.org/langchain",
+};
+
+function TechnologyLogo({ technology }: { technology: string }) {
+  const logo = technologyLogos[technology];
+
+  return (
+    <div
+      className="flex h-9 w-11 items-center justify-center rounded-lg border border-dashed border-border bg-background transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/25 hover:bg-muted/50 dark:bg-white/[0.02]"
+      title={technology}
+      aria-label={technology}
+    >
+      {logo ? (
+        <Image
+          src={logo}
+          alt={`${technology} logo`}
+          width={20}
+          height={20}
+          unoptimized
+          className="h-5 w-5 object-contain"
+        />
+      ) : (
+        <span className="text-xs font-semibold uppercase text-muted-foreground">
+          {technology.slice(0, 2)}
+        </span>
+      )}
+    </div>
+  );
+}
 
 function ProjectCard({ project }: { project: Project }) {
   const primaryLink = project.links[0];
@@ -85,13 +132,10 @@ function ProjectCard({ project }: { project: Project }) {
 
         <div className="flex flex-wrap gap-2">
           {project.technologies.map((technology) => (
-            <Badge
+            <TechnologyLogo
               key={`${project.title}-${technology}`}
-              variant="secondary"
-              className="rounded-md px-2.5 py-1 text-xs font-medium"
-            >
-              {technology}
-            </Badge>
+              technology={technology}
+            />
           ))}
         </div>
       </CardContent>

@@ -12,7 +12,7 @@ export const projects: Project[] = [
       { type: "Website", url: "https://postbloom-chi.vercel.app/" },
       { type: "Source", url: "https://github.com/NikhilPatil2727/postbloom" },
     ],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "OpenAI", "Vercel"],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Gemini", "Vercel"],
   },
   {
     title: "WebCraft",
