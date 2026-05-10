@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
+import { MorphicNavbar } from "@/components/kokonutui/morphic-navbar";
 import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
@@ -13,7 +13,9 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const morphicNavItems = Object.fromEntries(
+    navItems.map((item) => [item.href, { name: item.name }])
+  );
 
   return (
     <nav className="sticky top-4 z-50 w-full px-4">
@@ -31,23 +33,7 @@ export default function Navbar() {
           </Link>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href;
-
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={
-                    isActive
-                      ? "rounded-full bg-gray-100 px-4 py-1.5 text-sm font-semibold text-gray-900 transition-colors dark:bg-white/10 dark:text-white"
-                      : "px-1 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:text-black dark:text-gray-300 dark:hover:text-white"
-                  }
-                >
-                  {item.name}
-                </Link>
-              );
-            })}
+            <MorphicNavbar items={morphicNavItems} className="px-0 py-0" />
 
             <ThemeToggle />
           </div>
