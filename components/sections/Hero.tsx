@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import profilePic from "../../public/Nikhil_image.png";
+import ShimmerText from "@/components/kokonutui/shimmer-text";
 import { HoverBorderGradient } from "../ui/hover-border-gradient";
 import { Highlighter } from "@/components/ui/highlighter";
 import { NoiseBackground } from "@/components/ui/noise-background";
@@ -13,9 +14,11 @@ export default function Hero() {
     <section className="relative mx-auto max-w-3xl px-6 py-24 md:py-32">
       <div className="flex flex-col-reverse items-center justify-between gap-14 md:flex-row">
         <div className="flex-1 text-center md:text-left">
-          <h1 className="mb-4 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-6xl">
-            Nikhil Patil
-          </h1>
+          <ShimmerText
+            text="Nikhil Patil"
+            className="text-4xl tracking-tight md:text-6xl"
+            containerClassName="mb-4 justify-center p-0 md:justify-start"
+          />
 
           <p className="mb-6 flex flex-wrap justify-center gap-2 font-sans text-xl leading-relaxed text-muted-foreground md:justify-start md:text-2xl">
             Building
