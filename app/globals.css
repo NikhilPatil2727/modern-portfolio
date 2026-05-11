@@ -134,6 +134,12 @@
   }
 }
 
+@layer components {
+  .blog-display-heading {
+    @apply font-display font-semibold leading-[0.95] tracking-normal text-foreground;
+  }
+}
+
 ::view-transition-old(root), ::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;

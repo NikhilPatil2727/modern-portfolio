@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mb-4 mt-12 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+    <h2 className="blog-display-heading mb-4 mt-12 text-3xl sm:text-4xl">
       {children}
     </h2>
   );
@@ -28,7 +28,7 @@ export default function ConsistentHashingPage() {
           <Badge variant="secondary" className="mb-4 rounded-md px-2.5 py-1">
             System Design
           </Badge>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          <h1 className="blog-display-heading text-4xl sm:text-5xl">
             Consistent Hashing — How Distributed Systems Find the Right Server
           </h1>
           <div className="mt-5 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">

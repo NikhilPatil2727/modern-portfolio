@@ -6,7 +6,7 @@ export default function BlogPage() {
   return (
     <section className="mx-auto max-w-3xl px-6 py-16">
       <div className="mb-10">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <h1 className="blog-display-heading text-4xl sm:text-5xl">
           Latest Blog Posts
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
@@ -27,7 +27,7 @@ export default function BlogPage() {
                 <span>{post.readingTime}</span>
               </div>
               <div className="flex items-start justify-between gap-4">
-                <h2 className="text-2xl font-semibold leading-tight tracking-tight text-foreground sm:text-3xl">
+                <h2 className="blog-display-heading text-2xl sm:text-3xl">
                   {post.title}
                 </h2>
                 <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" />
