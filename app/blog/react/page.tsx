@@ -3,13 +3,15 @@ import type { ReactNode } from "react";
 import CodeBlock from "@/components/blog/CodeBlock";
 
 function SectionTitle({ children }: { children: ReactNode }) {
-  return <h2 className="mt-12 mb-4 text-3xl font-semibold text-foreground">{children}</h2>;
+  return <h2 className="blog-display-heading mt-12 mb-4 text-3xl sm:text-4xl">{children}</h2>;
 }
 
 export default function ReactBlogPage() {
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 text-foreground [&_li_code]:rounded [&_li_code]:bg-muted [&_li_code]:px-1 [&_li_code]:py-0.5 [&_li_code]:text-foreground [&_p_code]:rounded [&_p_code]:bg-muted [&_p_code]:px-1 [&_p_code]:py-0.5 [&_p_code]:text-foreground">
-      <h1 className="mb-2 text-5xl font-bold tracking-tight text-foreground">Complete Guide to React Hooks</h1>
+      <h1 className="blog-display-heading mb-2 text-4xl sm:text-5xl">
+        Complete Guide to React Hooks
+      </h1>
       <p className="mb-10 text-muted-foreground">Interview-focused notes with practical code examples.</p>
 
       <SectionTitle>What are components in React?</SectionTitle>
