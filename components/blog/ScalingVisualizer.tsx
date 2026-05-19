@@ -82,14 +82,14 @@ export function VerticalScalingDiagram() {
 
   return (
     <div className="my-6 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-      <div className="bg-muted/20 p-4 sm:p-5">
-        <div className="mb-5 flex items-center justify-center gap-2">
+      <div className="bg-muted/20 p-3 sm:p-4">
+        <div className="mb-3 flex items-center justify-center gap-2">
           {[0, 1, 2, 3].map((index) => (
             <RequestPill key={index} active={step >= 1} delay={index} />
           ))}
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+        <div className="grid gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
           <ServerBox
             title="Before"
             subtitle="Small Server"
@@ -173,7 +173,7 @@ function ServerBox({
   return (
     <div
       className={cn(
-        "rounded-2xl border p-5 transition-all duration-500",
+        "rounded-2xl border p-4 transition-all duration-500",
         strong ? "border-foreground/20 bg-background" : "border-border bg-background/70",
         highlighted && "scale-[1.02] shadow-lg shadow-foreground/5",
       )}
@@ -183,8 +183,8 @@ function ServerBox({
         <Server className="h-5 w-5" />
         {subtitle}
       </h3>
-      <LiquidDatabase fill={fill} label={fillLabel} colorClass={fillColor} className="mt-4" />
-      <div className="mt-4 space-y-2 text-sm">
+      <LiquidDatabase fill={fill} label={fillLabel} colorClass={fillColor} className="mt-3" />
+      <div className="mt-3 space-y-2 text-sm">
         <Metric icon={Cpu} label="CPU" value={cpu} />
         <Metric icon={MemoryStick} label="RAM" value={ram} />
         <Metric icon={HardDrive} label="Storage" value={disk} />
@@ -205,9 +205,9 @@ function LiquidDatabase({
   className?: string;
 }) {
   return (
-    <div className={cn("relative overflow-hidden rounded-2xl border border-border bg-muted/30 p-3", className)}>
-      <div className="relative mx-auto h-28 w-28 overflow-hidden rounded-[50%/14%] border border-border bg-background shadow-inner">
-        <div className="absolute left-0 right-0 top-0 z-20 h-5 rounded-[50%] border border-border bg-background/80" />
+    <div className={cn("relative overflow-hidden rounded-2xl border border-border bg-muted/30 p-2.5", className)}>
+      <div className="relative mx-auto h-20 w-24 overflow-hidden rounded-[50%/14%] border border-border bg-background shadow-inner sm:h-24 sm:w-28">
+        <div className="absolute left-0 right-0 top-0 z-20 h-4 rounded-[50%] border border-border bg-background/80" />
         <motion.div
           className={cn("absolute bottom-0 left-0 right-0 bg-gradient-to-t", colorClass)}
           initial={{ height: "0%" }}
@@ -215,7 +215,7 @@ function LiquidDatabase({
           transition={{ duration: 0.75, ease: "easeOut" }}
         >
           <motion.div
-            className="absolute -top-2 left-[-20%] h-5 w-[140%] rounded-[50%] bg-white/35"
+            className="absolute -top-2 left-[-20%] h-4 w-[140%] rounded-[50%] bg-white/35"
             animate={{ x: ["-10%", "10%", "-10%"] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
           />
@@ -227,10 +227,10 @@ function LiquidDatabase({
         </motion.div>
         <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center">
           <Database className="h-5 w-5 text-foreground" />
-          <p className="mt-1 font-mono text-lg font-semibold text-foreground">{fill}%</p>
+          <p className="mt-1 font-mono text-base font-semibold text-foreground">{fill}%</p>
         </div>
       </div>
-      <p className="mt-3 text-center text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+      <p className="mt-2 text-center text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
         {label}
       </p>
     </div>
@@ -262,8 +262,8 @@ export function ShardingArchitectureDiagram() {
 
   return (
     <div className="my-6 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-      <div className="bg-muted/20 p-4 sm:p-5">
-        <div className="mx-auto max-w-xl space-y-4 text-center">
+      <div className="bg-muted/20 p-3 sm:p-4">
+        <div className="mx-auto max-w-xl space-y-2.5 text-center">
           <DiagramNode icon={Users} title="Users" text="Many people use the app" active={step >= 0} />
           <Connector active={step >= 1} />
           <DiagramNode
@@ -290,7 +290,7 @@ export function ShardingArchitectureDiagram() {
               <div
                 key={title}
                 className={cn(
-                  "rounded-2xl border bg-background p-4 text-left transition-all duration-500",
+                  "rounded-2xl border bg-background p-3 text-left transition-all duration-500",
                   step >= 3
                     ? "border-foreground/20 shadow-lg shadow-foreground/5"
                     : "border-border opacity-60",
@@ -301,14 +301,14 @@ export function ShardingArchitectureDiagram() {
                   <Database className="h-5 w-5" />
                   {title}
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground">{range}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{range}</p>
                 <LiquidDatabase
                   fill={step >= 3 ? numericFill : 0}
                   label={step >= 3 ? fill : "waiting"}
                   colorClass={shardColors[index]}
-                  className="mt-4"
+                  className="mt-2"
                 />
-                <p className="mt-2 text-xs text-muted-foreground">{fill}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{fill}</p>
               </div>
               );
             })}
@@ -335,12 +335,12 @@ function DiagramNode({
   return (
     <div
       className={cn(
-        "rounded-2xl border bg-background p-4 transition-all duration-500",
+        "rounded-2xl border bg-background p-3 transition-all duration-500",
         active ? "border-foreground/20 shadow-lg shadow-foreground/5" : "border-border opacity-60",
       )}
     >
       <Icon className="mx-auto h-5 w-5 text-foreground" />
-      <p className="mt-2 font-semibold text-foreground">{title}</p>
+      <p className="mt-1 font-semibold text-foreground">{title}</p>
       <p className="mt-1 text-sm text-muted-foreground">{text}</p>
     </div>
   );
@@ -348,7 +348,7 @@ function DiagramNode({
 
 function Connector({ active = false }: { active?: boolean }) {
   return (
-    <div className="mx-auto h-8 w-px overflow-hidden bg-border">
+    <div className="mx-auto h-5 w-px overflow-hidden bg-border">
       <div
         className={cn(
           "h-full w-full origin-top bg-foreground transition-transform duration-500",
@@ -369,7 +369,7 @@ function StepControls({
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }) {
   return (
-    <div className="space-y-3 border-t border-border px-4 py-3 sm:px-5">
+    <div className="space-y-2.5 border-t border-border px-4 py-3 sm:px-5">
       <div className="flex flex-wrap items-center justify-center gap-2">
         <Button
           type="button"

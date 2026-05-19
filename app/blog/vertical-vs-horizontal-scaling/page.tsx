@@ -51,7 +51,7 @@ function SmallCard({
 
 export default function VerticalVsHorizontalScalingPage() {
   return (
-    <article className="mx-auto max-w-3xl px-6 py-12 text-foreground animate-in fade-in slide-in-from-bottom-3 duration-500">
+    <article className="mx-auto max-w-2xl px-6 py-12 text-foreground animate-in fade-in slide-in-from-bottom-3 duration-500">
       <Button asChild variant="ghost" className="-ml-3 mb-8 rounded-full">
         <Link href="/blog">
           <ArrowLeft className="h-4 w-4" />

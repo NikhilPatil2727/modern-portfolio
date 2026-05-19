@@ -77,7 +77,7 @@ export const AnimatedThemeToggler = ({
       type="button"
       ref={buttonRef}
       onClick={toggleTheme}
-      className={cn(className)}
+      className={cn("cursor-pointer disabled:cursor-not-allowed", className)}
       aria-label={mounted ? `Switch to ${isDark ? "light" : "dark"} mode` : "Toggle theme"}
       {...props}
     >
