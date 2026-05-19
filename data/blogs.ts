@@ -9,6 +9,15 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
+    title: "Vertical Scaling vs Horizontal Scaling (Sharding)",
+    description:
+      "A beginner-friendly guide to vertical scaling, horizontal scaling, database sharding, and why modern systems split data.",
+    date: "May 19, 2026",
+    readingTime: "10 min read",
+    tag: "System Design",
+    href: "/blog/vertical-vs-horizontal-scaling",
+  },
+  {
     title: "Consistent Hashing — How Distributed Systems Find the Right Server",
     description:
       "A practical system design explainer on hash rings, key movement, virtual nodes, and why distributed systems use consistent hashing.",
