@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   Check,
   ChevronLeft,
@@ -26,6 +27,12 @@ const comparisonRows = [
   ["Scalability", "Limited by hardware", "Can keep adding machines"],
   ["Maintenance", "Easy", "Needs monitoring and routing"],
   ["Failure Handling", "One DB can stop everything", "One shard can fail separately"],
+];
+
+const shardColors = [
+  "from-sky-400 via-cyan-300 to-blue-500",
+  "from-emerald-400 via-teal-300 to-cyan-500",
+  "from-amber-300 via-orange-300 to-rose-400",
 ];
 
 const verticalSteps = [
@@ -89,6 +96,9 @@ export function VerticalScalingDiagram() {
             cpu={step >= 1 ? "92% busy" : "2 Core"}
             ram={step >= 1 ? "88% used" : "4GB"}
             disk="100GB SSD"
+            fill={step >= 1 ? 92 : 35}
+            fillLabel={step >= 1 ? "Almost full" : "Healthy"}
+            fillColor="from-amber-300 via-orange-300 to-rose-400"
             highlighted={step <= 1}
           />
           <div className="flex justify-center text-muted-foreground">
@@ -108,6 +118,9 @@ export function VerticalScalingDiagram() {
             cpu="32 Core"
             ram="128GB"
             disk="4TB NVMe"
+            fill={step >= 2 ? 42 : 0}
+            fillLabel={step >= 2 ? "More room" : "Not upgraded yet"}
+            fillColor="from-sky-400 via-cyan-300 to-blue-500"
             strong={step >= 2}
             highlighted={step >= 2}
           />
@@ -140,6 +153,9 @@ function ServerBox({
   cpu,
   ram,
   disk,
+  fill,
+  fillLabel,
+  fillColor,
   strong = false,
   highlighted = false,
 }: {
@@ -148,6 +164,9 @@ function ServerBox({
   cpu: string;
   ram: string;
   disk: string;
+  fill: number;
+  fillLabel: string;
+  fillColor: string;
   strong?: boolean;
   highlighted?: boolean;
 }) {
@@ -164,11 +183,56 @@ function ServerBox({
         <Server className="h-5 w-5" />
         {subtitle}
       </h3>
+      <LiquidDatabase fill={fill} label={fillLabel} colorClass={fillColor} className="mt-4" />
       <div className="mt-4 space-y-2 text-sm">
         <Metric icon={Cpu} label="CPU" value={cpu} />
         <Metric icon={MemoryStick} label="RAM" value={ram} />
         <Metric icon={HardDrive} label="Storage" value={disk} />
       </div>
+    </div>
+  );
+}
+
+function LiquidDatabase({
+  fill,
+  label,
+  colorClass,
+  className,
+}: {
+  fill: number;
+  label: string;
+  colorClass: string;
+  className?: string;
+}) {
+  return (
+    <div className={cn("relative overflow-hidden rounded-2xl border border-border bg-muted/30 p-3", className)}>
+      <div className="relative mx-auto h-28 w-28 overflow-hidden rounded-[50%/14%] border border-border bg-background shadow-inner">
+        <div className="absolute left-0 right-0 top-0 z-20 h-5 rounded-[50%] border border-border bg-background/80" />
+        <motion.div
+          className={cn("absolute bottom-0 left-0 right-0 bg-gradient-to-t", colorClass)}
+          initial={{ height: "0%" }}
+          animate={{ height: `${fill}%` }}
+          transition={{ duration: 0.75, ease: "easeOut" }}
+        >
+          <motion.div
+            className="absolute -top-2 left-[-20%] h-5 w-[140%] rounded-[50%] bg-white/35"
+            animate={{ x: ["-10%", "10%", "-10%"] }}
+            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute inset-x-3 top-4 h-3 rounded-full bg-white/20 blur-sm"
+            animate={{ opacity: [0.25, 0.65, 0.25] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center">
+          <Database className="h-5 w-5 text-foreground" />
+          <p className="mt-1 font-mono text-lg font-semibold text-foreground">{fill}%</p>
+        </div>
+      </div>
+      <p className="mt-3 text-center text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+        {label}
+      </p>
     </div>
   );
 }
@@ -219,7 +283,10 @@ export function ShardingArchitectureDiagram() {
               ["Shard 1", "Users A-M", "62% full"],
               ["Shard 2", "Users N-Z", "48% full"],
               ["Shard 3", "Orders", "73% full"],
-            ].map(([title, range, fill], index) => (
+            ].map(([title, range, fill], index) => {
+              const numericFill = Number(fill.replace("% full", ""));
+
+              return (
               <div
                 key={title}
                 className={cn(
@@ -235,15 +302,16 @@ export function ShardingArchitectureDiagram() {
                   {title}
                 </div>
                 <p className="mt-2 text-sm text-muted-foreground">{range}</p>
-                <div className="mt-4 h-2 overflow-hidden rounded-full bg-muted">
-                  <div
-                    className="h-full rounded-full bg-foreground transition-all duration-700"
-                    style={{ width: step >= 3 ? fill.replace(" full", "") : "0%" }}
-                  />
-                </div>
+                <LiquidDatabase
+                  fill={step >= 3 ? numericFill : 0}
+                  label={step >= 3 ? fill : "waiting"}
+                  colorClass={shardColors[index]}
+                  className="mt-4"
+                />
                 <p className="mt-2 text-xs text-muted-foreground">{fill}</p>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
