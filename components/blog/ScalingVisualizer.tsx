@@ -82,17 +82,17 @@ export function VerticalScalingDiagram() {
 
   return (
     <div className="my-6 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-      <div className="bg-muted/20 p-3 sm:p-4">
-        <div className="mb-3 flex items-center justify-center gap-2">
+      <div className="bg-muted/20 px-2 py-3 sm:px-3">
+        <div className="mb-2 flex items-center justify-center gap-1.5">
           {[0, 1, 2, 3].map((index) => (
             <RequestPill key={index} active={step >= 1} delay={index} />
           ))}
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-1.5 sm:gap-2">
           <ServerBox
             title="Before"
-            subtitle="Small Server"
+            subtitle="Small Server / DB"
             cpu={step >= 1 ? "92% busy" : "2 Core"}
             ram={step >= 1 ? "88% used" : "4GB"}
             disk="100GB SSD"
@@ -100,10 +100,11 @@ export function VerticalScalingDiagram() {
             fillLabel={step >= 1 ? "Almost full" : "Healthy"}
             fillColor="from-amber-300 via-orange-300 to-rose-400"
             highlighted={step <= 1}
+            compact
           />
           <div className="flex justify-center text-muted-foreground">
             <span
-              className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
+              className={`rounded-full border px-2 py-1 text-[10px] font-medium transition-all sm:px-3 sm:py-1.5 sm:text-xs ${
                 step >= 2
                   ? "border-foreground bg-foreground text-background"
                   : "border-border bg-background"
@@ -114,20 +115,21 @@ export function VerticalScalingDiagram() {
           </div>
           <ServerBox
             title="After"
-            subtitle="Bigger Server"
+            subtitle="Bigger Server / DB"
             cpu="32 Core"
             ram="128GB"
             disk="4TB NVMe"
             fill={step >= 2 ? 42 : 0}
-            fillLabel={step >= 2 ? "More room" : "Not upgraded yet"}
+            fillLabel={step >= 2 ? "More room" : ""}
             fillColor="from-sky-400 via-cyan-300 to-blue-500"
             strong={step >= 2}
             highlighted={step >= 2}
+            compact
           />
         </div>
       </div>
 
-      <StepControls steps={verticalSteps} step={step} setStep={setStep} />
+      <BottomStepControls steps={verticalSteps} step={step} setStep={setStep} />
     </div>
   );
 }
@@ -158,6 +160,7 @@ function ServerBox({
   fillColor,
   strong = false,
   highlighted = false,
+  compact = false,
 }: {
   title: string;
   subtitle: string;
@@ -169,25 +172,41 @@ function ServerBox({
   fillColor: string;
   strong?: boolean;
   highlighted?: boolean;
+  compact?: boolean;
 }) {
   return (
     <div
       className={cn(
-        "rounded-2xl border p-4 transition-all duration-500",
+        "min-w-0 rounded-2xl border transition-all duration-500",
+        compact ? "p-2 sm:p-3" : "p-4",
         strong ? "border-foreground/20 bg-background" : "border-border bg-background/70",
         highlighted && "scale-[1.02] shadow-lg shadow-foreground/5",
       )}
     >
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">{title}</p>
-      <h3 className="mt-2 flex items-center gap-2 text-xl font-semibold text-foreground">
-        <Server className="h-5 w-5" />
+      <p className="truncate text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:text-xs sm:tracking-[0.2em]">
+        {title}
+      </p>
+      <h3
+        className={cn(
+          "mt-1 flex items-center gap-1.5 font-semibold text-foreground sm:mt-1.5 sm:gap-2",
+          compact ? "text-xs sm:text-base" : "text-xl",
+        )}
+      >
+        <Server className={cn(compact ? "h-3.5 w-3.5 sm:h-5 sm:w-5" : "h-5 w-5")} />
         {subtitle}
       </h3>
-      <LiquidDatabase fill={fill} label={fillLabel} colorClass={fillColor} className="mt-3" />
-      <div className="mt-3 space-y-2 text-sm">
-        <Metric icon={Cpu} label="CPU" value={cpu} />
-        <Metric icon={MemoryStick} label="RAM" value={ram} />
-        <Metric icon={HardDrive} label="Storage" value={disk} />
+      <div
+        className={cn(
+          "mt-2 grid gap-1.5 sm:gap-2",
+          compact ? "grid-cols-[58px_1fr] items-center sm:grid-cols-[88px_1fr]" : "grid-cols-1",
+        )}
+      >
+        <LiquidDatabase fill={fill} label={fillLabel} colorClass={fillColor} compact={compact} />
+        <div className={cn(compact ? "grid gap-1.5 text-xs" : "mt-3 space-y-2 text-sm")}>
+          <Metric icon={Cpu} label="CPU" value={cpu} compact={compact} />
+          <Metric icon={MemoryStick} label="RAM" value={ram} compact={compact} />
+          <Metric icon={HardDrive} label="Disk" value={disk} compact={compact} />
+        </div>
       </div>
     </div>
   );
@@ -198,16 +217,29 @@ function LiquidDatabase({
   label,
   colorClass,
   className,
+  compact = false,
 }: {
   fill: number;
   label: string;
   colorClass: string;
   className?: string;
+  compact?: boolean;
 }) {
   return (
-    <div className={cn("relative overflow-hidden rounded-2xl border border-border bg-muted/30 p-2.5", className)}>
-      <div className="relative mx-auto h-20 w-24 overflow-hidden rounded-[50%/14%] border border-border bg-background shadow-inner sm:h-24 sm:w-28">
-        <div className="absolute left-0 right-0 top-0 z-20 h-4 rounded-[50%] border border-border bg-background/80" />
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-2xl border border-border bg-muted/30",
+        compact ? "p-1.5 sm:p-2" : "p-2.5",
+        className,
+      )}
+    >
+      <div
+        className={cn(
+          "relative mx-auto overflow-hidden rounded-[50%/14%] border border-border bg-background shadow-inner",
+          compact ? "h-12 w-14 sm:h-16 sm:w-20" : "h-20 w-24 sm:h-24 sm:w-28",
+        )}
+      >
+        <div className="absolute left-0 right-0 top-0 z-20 h-2.5 rounded-[50%] border border-border bg-background/80 sm:h-3" />
         <motion.div
           className={cn("absolute bottom-0 left-0 right-0 bg-gradient-to-t", colorClass)}
           initial={{ height: "0%" }}
@@ -226,13 +258,27 @@ function LiquidDatabase({
           />
         </motion.div>
         <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center">
-          <Database className="h-5 w-5 text-foreground" />
-          <p className="mt-1 font-mono text-base font-semibold text-foreground">{fill}%</p>
+          <Database className={cn("text-foreground", compact ? "h-3.5 w-3.5 sm:h-4 sm:w-4" : "h-5 w-5")} />
+          <p
+            className={cn(
+              "mt-0.5 font-mono font-semibold text-foreground",
+              compact ? "text-xs sm:text-sm" : "text-base",
+            )}
+          >
+            {fill}%
+          </p>
         </div>
       </div>
-      <p className="mt-2 text-center text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
-        {label}
-      </p>
+      {label ? (
+        <p
+          className={cn(
+            "mt-1 text-center text-[9px] font-medium uppercase text-muted-foreground sm:mt-1.5 sm:text-[10px]",
+            compact ? "tracking-normal sm:tracking-[0.1em]" : "tracking-[0.16em]",
+          )}
+        >
+          {label}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -241,18 +287,25 @@ function Metric({
   icon: Icon,
   label,
   value,
+  compact = false,
 }: {
   icon: React.ElementType;
   label: string;
   value: string;
+  compact?: boolean;
 }) {
   return (
-    <div className="flex items-center justify-between rounded-xl bg-muted/50 px-3 py-2">
-      <span className="flex items-center gap-2 text-muted-foreground">
-        <Icon className="h-4 w-4" />
-        {label}
+    <div
+      className={cn(
+        "flex items-center justify-between rounded-xl bg-muted/50",
+        compact ? "px-1.5 py-1 text-[10px] sm:px-2 sm:py-1.5 sm:text-xs" : "px-3 py-2",
+      )}
+    >
+      <span className="flex min-w-0 items-center gap-1 text-muted-foreground sm:gap-2">
+        <Icon className={cn(compact ? "h-3.5 w-3.5" : "h-4 w-4")} />
+        <span className="truncate">{label}</span>
       </span>
-      <span className="font-mono font-medium text-foreground">{value}</span>
+      <span className="truncate pl-1 font-mono font-medium text-foreground">{value}</span>
     </div>
   );
 }
@@ -262,61 +315,71 @@ export function ShardingArchitectureDiagram() {
 
   return (
     <div className="my-6 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-      <div className="bg-muted/20 p-3 sm:p-4">
-        <div className="mx-auto max-w-xl space-y-2.5 text-center">
-          <DiagramNode icon={Users} title="Users" text="Many people use the app" active={step >= 0} />
-          <Connector active={step >= 1} />
-          <DiagramNode
-            icon={Network}
-            title="Load Balancer"
-            text="Sends traffic to app servers"
-            active={step >= 1}
-          />
-          <Connector active={step >= 2} />
-          <div className="grid gap-3 sm:grid-cols-2">
-            <DiagramNode icon={Server} title="App 1" text="Checks shard rule" active={step >= 2} />
-            <DiagramNode icon={Server} title="App 2" text="Routes request" active={step >= 2} />
-          </div>
-          <Connector active={step >= 3} />
-          <div className="grid gap-3 sm:grid-cols-3">
-            {[
-              ["Shard 1", "Users A-M", "62% full"],
-              ["Shard 2", "Users N-Z", "48% full"],
-              ["Shard 3", "Orders", "73% full"],
-            ].map(([title, range, fill], index) => {
-              const numericFill = Number(fill.replace("% full", ""));
+      <div className="grid gap-0 bg-muted/20 sm:grid-cols-[170px_minmax(0,1fr)]">
+        <SideStepControls steps={horizontalSteps} step={step} setStep={setStep} />
 
-              return (
-              <div
-                key={title}
-                className={cn(
-                  "rounded-2xl border bg-background p-3 text-left transition-all duration-500",
-                  step >= 3
-                    ? "border-foreground/20 shadow-lg shadow-foreground/5"
-                    : "border-border opacity-60",
-                  step >= 4 && index === 2 && "scale-[1.03]",
-                )}
-              >
-                <div className="flex items-center gap-2 font-semibold text-foreground">
-                  <Database className="h-5 w-5" />
-                  {title}
-                </div>
-                <p className="mt-1 text-sm text-muted-foreground">{range}</p>
-                <LiquidDatabase
-                  fill={step >= 3 ? numericFill : 0}
-                  label={step >= 3 ? fill : "waiting"}
-                  colorClass={shardColors[index]}
-                  className="mt-2"
-                />
-                <p className="mt-1 text-xs text-muted-foreground">{fill}</p>
-              </div>
-              );
-            })}
+        <div className="border-t border-border p-2.5 sm:border-l sm:border-t-0 sm:p-3">
+          <div className="mx-auto max-w-xl space-y-1.5 text-center">
+            <DiagramNode
+              icon={Users}
+              title="Users"
+              text="Many people use the app"
+              active={step >= 0}
+              compact
+            />
+            <Connector active={step >= 1} compact />
+            <DiagramNode
+              icon={Network}
+              title="Load Balancer"
+              text="Sends traffic to app servers"
+              active={step >= 1}
+              compact
+            />
+            <Connector active={step >= 2} compact />
+            <div className="grid gap-2 sm:grid-cols-2">
+              <DiagramNode icon={Server} title="App 1" text="Checks shard rule" active={step >= 2} compact />
+              <DiagramNode icon={Server} title="App 2" text="Routes request" active={step >= 2} compact />
+            </div>
+            <Connector active={step >= 3} compact />
+            <div className="grid gap-2 sm:grid-cols-3">
+              {[
+                ["Shard 1", "Users A-M", "62% full"],
+                ["Shard 2", "Users N-Z", "48% full"],
+                ["Shard 3", "Orders", "73% full"],
+              ].map(([title, range, fill], index) => {
+                const numericFill = Number(fill.replace("% full", ""));
+
+                return (
+                  <div
+                    key={title}
+                    className={cn(
+                      "rounded-2xl border bg-background p-2 text-left transition-all duration-500",
+                      step >= 3
+                        ? "border-foreground/20 shadow-lg shadow-foreground/5"
+                        : "border-border opacity-60",
+                      step >= 4 && index === 2 && "scale-[1.03]",
+                    )}
+                  >
+                    <div className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+                      <Database className="h-4 w-4" />
+                      {title}
+                    </div>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{range}</p>
+                    <LiquidDatabase
+                      fill={step >= 3 ? numericFill : 0}
+                      label={step >= 3 ? fill : "waiting"}
+                      colorClass={shardColors[index]}
+                      className="mt-1.5"
+                      compact
+                    />
+                    <p className="mt-0.5 text-[11px] text-muted-foreground">{fill}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
-
-      <StepControls steps={horizontalSteps} step={step} setStep={setStep} />
     </div>
   );
 }
@@ -326,29 +389,34 @@ function DiagramNode({
   title,
   text,
   active = false,
+  compact = false,
 }: {
   icon: React.ElementType;
   title: string;
   text: string;
   active?: boolean;
+  compact?: boolean;
 }) {
   return (
     <div
       className={cn(
-        "rounded-2xl border bg-background p-3 transition-all duration-500",
+        "rounded-2xl border bg-background transition-all duration-500",
+        compact ? "p-2" : "p-3",
         active ? "border-foreground/20 shadow-lg shadow-foreground/5" : "border-border opacity-60",
       )}
     >
-      <Icon className="mx-auto h-5 w-5 text-foreground" />
-      <p className="mt-1 font-semibold text-foreground">{title}</p>
-      <p className="mt-1 text-sm text-muted-foreground">{text}</p>
+      <Icon className={cn("mx-auto text-foreground", compact ? "h-4 w-4" : "h-5 w-5")} />
+      <p className={cn("font-semibold text-foreground", compact ? "mt-0.5 text-sm" : "mt-1")}>
+        {title}
+      </p>
+      <p className={cn("mt-0.5 text-muted-foreground", compact ? "text-xs" : "text-sm")}>{text}</p>
     </div>
   );
 }
 
-function Connector({ active = false }: { active?: boolean }) {
+function Connector({ active = false, compact = false }: { active?: boolean; compact?: boolean }) {
   return (
-    <div className="mx-auto h-5 w-px overflow-hidden bg-border">
+    <div className={cn("mx-auto w-px overflow-hidden bg-border", compact ? "h-3.5" : "h-5")}>
       <div
         className={cn(
           "h-full w-full origin-top bg-foreground transition-transform duration-500",
@@ -359,7 +427,7 @@ function Connector({ active = false }: { active?: boolean }) {
   );
 }
 
-function StepControls({
+function SideStepControls({
   steps,
   step,
   setStep,
@@ -369,7 +437,80 @@ function StepControls({
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }) {
   return (
-    <div className="space-y-2.5 border-t border-border px-4 py-3 sm:px-5">
+    <div className="flex flex-col justify-between gap-3 p-3">
+      <div>
+        <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+          Step {step + 1} of {steps.length}
+        </p>
+        <h3 className="mt-2 text-sm font-semibold leading-5 text-foreground">{steps[step].title}</h3>
+        <p className="mt-1 text-xs leading-5 text-muted-foreground">{steps[step].description}</p>
+      </div>
+
+      <div className="space-y-2">
+        <div className="flex items-center gap-1.5">
+          <Button
+            type="button"
+            variant="outline"
+            size="icon-sm"
+            onClick={() => setStep(0)}
+            aria-label="Reset visualization"
+            title="Reset"
+            className="h-8 w-8"
+          >
+            <RotateCcw className="h-4 w-4" />
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon-sm"
+            onClick={() => setStep((currentStep) => Math.max(0, currentStep - 1))}
+            disabled={step === 0}
+            aria-label="Previous step"
+            title="Previous"
+            className="h-8 w-8"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            type="button"
+            size="icon-sm"
+            onClick={() => setStep((currentStep) => Math.min(steps.length - 1, currentStep + 1))}
+            disabled={step === steps.length - 1}
+            aria-label="Next step"
+            title="Next"
+            className="h-8 w-8"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+
+        <div className="flex gap-1">
+          {steps.map((item, index) => (
+            <span
+              key={item.title}
+              className={cn(
+                "h-1.5 flex-1 rounded-full transition-colors",
+                index <= step ? "bg-foreground" : "bg-muted",
+              )}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BottomStepControls({
+  steps,
+  step,
+  setStep,
+}: {
+  steps: Array<{ title: string; description: string }>;
+  step: number;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}) {
+  return (
+    <div className="space-y-2 border-t border-border px-4 py-2.5 sm:px-5">
       <div className="flex flex-wrap items-center justify-center gap-2">
         <Button
           type="button"
@@ -402,24 +543,37 @@ function StepControls({
         </Button>
       </div>
 
-      <div className="mx-auto max-w-xl text-center">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-          Step {step + 1} of {steps.length}
-        </p>
-        <h3 className="mt-2 text-lg font-semibold tracking-tight text-foreground">
-          {steps[step].title}
-        </h3>
-        <p className="mt-1 text-sm leading-5 text-muted-foreground">
-          {steps[step].description}
-        </p>
-      </div>
+      <StepCaption steps={steps} step={step} withBorder={false} />
+    </div>
+  );
+}
 
-      <div className="mx-auto flex max-w-sm gap-1.5">
+function StepCaption({
+  steps,
+  step,
+  withBorder = true,
+}: {
+  steps: Array<{ title: string; description: string }>;
+  step: number;
+  withBorder?: boolean;
+}) {
+  return (
+    <div className={cn("px-4 py-0 text-center sm:px-5", withBorder && "border-t border-border py-2.5")}>
+      <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+        Step {step + 1} of {steps.length}
+      </p>
+      <h3 className="mt-1 text-sm font-semibold tracking-tight text-foreground sm:text-base">
+        {steps[step].title}
+      </h3>
+      <p className="mx-auto mt-1 max-w-xl text-xs leading-4 text-muted-foreground sm:text-sm">
+        {steps[step].description}
+      </p>
+      <div className="mx-auto mt-2 flex max-w-xs gap-1.5">
         {steps.map((item, index) => (
           <span
             key={item.title}
             className={cn(
-              "h-1.5 flex-1 rounded-full transition-colors",
+              "h-1 flex-1 rounded-full transition-colors",
               index <= step ? "bg-foreground" : "bg-muted",
             )}
           />
