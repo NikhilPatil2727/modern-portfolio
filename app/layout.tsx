@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 
@@ -46,7 +45,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <SmoothCursor />
              <ScrollProgress className="z-[80] h-1" />
              <Header/>
             {children}
