@@ -12,7 +12,7 @@ export default function RecentBlogs() {
     <section className="bg-background px-6 py-24">
       <div className="mx-auto max-w-2xl">
         <div className="mx-auto mb-14 max-w-2xl text-center">
-          <h2 className="blog-display-heading text-3xl sm:text-4xl">
+          <h2 className="blog-display-heading text-2xl sm:text-3xl">
             Recent writing
           </h2>
           <p className="mt-4 text-base leading-7 text-muted-foreground text-balance">
@@ -34,7 +34,7 @@ export default function RecentBlogs() {
                   <span>{post.readingTime}</span>
                 </div>
                 <div className="flex items-start justify-between gap-4">
-                  <h3 className="blog-display-heading text-2xl">
+                  <h3 className="blog-display-heading text-lg sm:text-xl">
                     {post.title}
                   </h3>
                   <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" />
