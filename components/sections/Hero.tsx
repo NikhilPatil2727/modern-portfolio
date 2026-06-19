@@ -49,7 +49,12 @@ export default function Hero() {
           </p>
 
           <p className="mx-auto max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground md:mx-0">
-            MERN & (Next.js) Developer &{" "}
+            <span className="inline-flex font-semibold text-foreground dark:text-white">
+              <Highlighter action="underline" color="#FF9800" padding={2} iterations={1}>
+                <span>MERN & (Next.js)</span>
+              </Highlighter>
+            </span>{" "}
+            Developer &{" "}
             <span className="inline-flex font-semibold text-foreground dark:text-white">
               <Highlighter action="underline" color="#FF9800" padding={2} iterations={1}>
                 <span>Frontend Heavy</span>
