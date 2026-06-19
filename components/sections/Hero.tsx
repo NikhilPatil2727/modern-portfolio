@@ -8,6 +8,7 @@ import { HoverBorderGradient } from "../ui/hover-border-gradient";
 import { Highlighter } from "@/components/ui/highlighter";
 import { NoiseBackground } from "@/components/ui/noise-background";
 import { cn } from "@/lib/utils";
+import { Github, Linkedin } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -24,7 +25,7 @@ export default function Hero() {
             Building
             <Link
               href="https://marketplace.visualstudio.com/items?itemName=nikhil27.x-code-reviewer-ai"
-              className="inline-flex flex-wrap items-baseline gap-1.5 font-semibold text-foreground hover:underline"
+              className="inline-flex flex-wrap items-baseline gap-1.5 font-semibold text-foreground"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -38,45 +39,53 @@ export default function Hero() {
 
             <Link
               href="https://postbloom-chi.vercel.app/"
-              className="inline-flex items-center whitespace-nowrap font-semibold text-foreground hover:underline"
+              className="inline-flex items-center whitespace-nowrap font-semibold text-foreground"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Highlighter action="highlight" color="#87CEFA" padding={4} iterations={1}>
-                <span>PostBloom</span>
-              </Highlighter>
+              <span>PostBloom</span>
             </Link>
             & other cool things
           </p>
 
           <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted-foreground md:mx-0">
-            Fresher MERN Stack Developer focused on scalable web apps and Gen-AI powered developer
-            tools.
+            MERN & (Next.js) Developer &{" "}
+            <span className="inline-flex font-semibold text-foreground dark:text-white">
+              <Highlighter action="underline" color="#FF9800" padding={2} iterations={1}>
+                <span>Frontend Heavy</span>
+              </Highlighter>
+            </span>{" "}
+            focused on scalable web apps and Gen-AI powered developer tools.
           </p>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
-            <Link href="https://x.com/nikhil_patil27" target="_blank" className="inline-block">
-              <NoiseBackground
-                containerClassName="rounded-full p-[2px]"
-                gradientColors={[
-                  "rgb(29,161,242)",
-                  "rgb(100,150,255)",
-                  "rgb(29,161,242)",
-                ]}
-              >
-                <div className="rounded-full bg-background px-6 py-3 font-medium text-foreground shadow-sm transition active:scale-95">
-                  Twitter &rarr;
-                </div>
-              </NoiseBackground>
+          <div className="mt-8 flex justify-center gap-4 md:justify-start">
+            <Link
+              href="https://x.com/nikhil_patil27"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-11 w-11 items-center justify-center rounded-xl border border-dashed border-gray-200 bg-white text-gray-700 transition-all duration-200 hover:scale-105 hover:border-gray-400 dark:border-white/15 dark:bg-white/[0.02] dark:text-gray-300 dark:hover:text-white dark:hover:border-white/30"
+            >
+              <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
             </Link>
 
-            <Link href="/projects" className="inline-block">
-              <HoverBorderGradient
-                containerClassName="rounded-full"
-                className="cursor-pointer bg-background px-6 py-3 font-medium text-foreground"
-              >
-                Projects
-              </HoverBorderGradient>
+            <Link
+              href="https://github.com/NikhilPatil2727"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-11 w-11 items-center justify-center rounded-xl border border-dashed border-gray-200 bg-white text-gray-700 transition-all duration-200 hover:scale-105 hover:border-gray-400 dark:border-white/15 dark:bg-white/[0.02] dark:text-gray-300 dark:hover:text-white dark:hover:border-white/30"
+            >
+              <Github className="h-5 w-5" />
+            </Link>
+
+            <Link
+              href="https://www.linkedin.com/in/nikhil-patil-967986251/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-11 w-11 items-center justify-center rounded-xl border border-dashed border-gray-200 bg-white text-gray-700 transition-all duration-200 hover:scale-105 hover:border-gray-400 dark:border-white/15 dark:bg-white/[0.02] dark:text-gray-300 dark:hover:text-white dark:hover:border-white/30"
+            >
+              <Linkedin className="h-5 w-5" />
             </Link>
           </div>
         </div>
