@@ -12,16 +12,16 @@ import { Github, Linkedin } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative mx-auto max-w-3xl px-6 py-24 md:py-32">
-      <div className="flex flex-col-reverse items-center justify-between gap-14 md:flex-row">
+    <section className="relative mx-auto max-w-3xl px-6 py-12 sm:py-24 md:py-32">
+      <div className="flex flex-col-reverse items-center justify-between gap-8 md:gap-14 md:flex-row">
         <div className="flex-1 text-center md:text-left">
           <ShimmerText
             text="Nikhil Patil"
-            className="text-4xl tracking-tight md:text-6xl"
+            className="text-3xl sm:text-5xl md:text-6xl tracking-tight"
             containerClassName="mb-4 justify-center p-0 md:justify-start"
           />
 
-          <p className="mb-6 flex flex-wrap justify-center gap-2 font-sans text-xl leading-relaxed text-muted-foreground md:justify-start md:text-2xl">
+          <p className="mb-6 flex flex-wrap justify-center gap-2 font-sans text-base sm:text-xl md:text-2xl leading-relaxed text-muted-foreground md:justify-start">
             Building
             <Link
               href="https://marketplace.visualstudio.com/items?itemName=nikhil27.x-code-reviewer-ai"
@@ -32,7 +32,7 @@ export default function Hero() {
               <Highlighter action="underline" color="#FF9800" padding={2} iterations={1}>
                 <span>X Code Reviewer AI</span>
               </Highlighter>
-              <span className="text-sm font-medium tracking-tight text-foreground/80">
+              <span className="text-xs sm:text-sm font-medium tracking-tight text-foreground/80">
                 &mdash; (own VS Code extension)
               </span>
             </Link>
@@ -48,7 +48,7 @@ export default function Hero() {
             & other cool things
           </p>
 
-          <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted-foreground md:mx-0">
+          <p className="mx-auto max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground md:mx-0">
             MERN & (Next.js) Developer &{" "}
             <span className="inline-flex font-semibold text-foreground dark:text-white">
               <Highlighter action="underline" color="#FF9800" padding={2} iterations={1}>
@@ -90,7 +90,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative flex h-[220px] w-[220px] items-center justify-center">
+        <div className="relative flex h-[180px] w-[180px] sm:h-[220px] sm:w-[220px] items-center justify-center shrink-0">
           <div
             className={cn(
               "absolute inset-0 rounded-2xl",
@@ -101,9 +101,9 @@ export default function Hero() {
           />
 
           <div className="pointer-events-none absolute inset-0 rounded-2xl bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_35%,black)]" />
-          <div className="absolute h-40 w-40 rounded-full bg-blue-500/40 blur-3xl" />
+          <div className="absolute h-32 w-32 sm:h-40 sm:w-40 rounded-full bg-blue-500/40 blur-3xl" />
 
-          <div className="relative z-10 h-24 w-24 overflow-hidden rounded-xl shadow-xl md:h-28 md:w-28">
+          <div className="relative z-10 h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 overflow-hidden rounded-xl shadow-xl">
             <Image
               src={profilePic}
               alt="Nikhil Patil"

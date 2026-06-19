@@ -50,9 +50,9 @@ export function MorphicNavbar({
             return (
               <Link
                 className={clsx(
-                  "flex items-center justify-center bg-black p-1.5 px-4 text-sm text-white transition-all duration-300 dark:bg-white dark:text-black",
+                  "flex items-center justify-center bg-black p-1.5 px-2.5 sm:px-4 text-[13px] sm:text-sm text-white transition-all duration-300 dark:bg-white dark:text-black",
                   isActive
-                    ? "mx-2 rounded-xl font-semibold text-sm"
+                    ? "mx-1 sm:mx-2 rounded-xl font-semibold text-[13px] sm:text-sm"
                     : clsx(
                         (isActiveLink(prevPath || "") || isFirst) &&
                           "rounded-l-xl",
