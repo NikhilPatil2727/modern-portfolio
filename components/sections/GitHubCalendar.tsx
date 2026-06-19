@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Github } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 
 type ContributionDay = {
   date: string;
@@ -179,67 +180,80 @@ export default function GitHubCalendar() {
           </h2>
         </div>
 
-        <div className="rounded-2xl border border-dashed border-gray-200 bg-white p-6 dark:border-white/15 dark:bg-white/[0.02]">
-          <div className="flex items-center gap-2 mb-6 text-gray-900 dark:text-white">
-            <Github className="h-5 w-5" />
-            <span className="font-semibold text-base sm:text-lg">
-              Total Contributions: {totalContributions.toLocaleString()}
-            </span>
-          </div>
+        <TooltipProvider>
+          <div className="rounded-2xl border border-dashed border-gray-200 bg-white p-6 dark:border-white/15 dark:bg-white/[0.02]">
+            <div className="flex items-center gap-2 mb-6 text-gray-900 dark:text-white">
+              <Github className="h-5 w-5" />
+              <span className="font-semibold text-base sm:text-lg">
+                Total Contributions: {totalContributions.toLocaleString()}
+              </span>
+            </div>
 
-          <div className="overflow-x-auto pb-2 -mx-2 px-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="flex items-start min-w-[670px] py-2">
-              {/* Day labels column */}
-              <div className="grid grid-rows-7 gap-[3px] pr-2 pt-[20px] text-[10px] text-gray-400 dark:text-gray-500 w-8 select-none font-medium">
-                <div className="h-[10px] flex items-center leading-none" />
-                <div className="h-[10px] flex items-center leading-none">Mon</div>
-                <div className="h-[10px] flex items-center leading-none" />
-                <div className="h-[10px] flex items-center leading-none">Wed</div>
-                <div className="h-[10px] flex items-center leading-none" />
-                <div className="h-[10px] flex items-center leading-none">Fri</div>
-                <div className="h-[10px] flex items-center leading-none" />
-              </div>
+            <div className="overflow-x-auto pb-2 -mx-2 px-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <div className="flex items-start min-w-[670px] py-2">
+                {/* Day labels column */}
+                <div className="grid grid-rows-7 gap-[3px] pr-2 pt-[20px] text-[10px] text-gray-400 dark:text-gray-500 w-8 select-none font-medium">
+                  <div className="h-[10px] flex items-center leading-none" />
+                  <div className="h-[10px] flex items-center leading-none">Mon</div>
+                  <div className="h-[10px] flex items-center leading-none" />
+                  <div className="h-[10px] flex items-center leading-none">Wed</div>
+                  <div className="h-[10px] flex items-center leading-none" />
+                  <div className="h-[10px] flex items-center leading-none">Fri</div>
+                  <div className="h-[10px] flex items-center leading-none" />
+                </div>
 
-              {/* Weeks grid */}
-              <div className="flex gap-[3px]">
-                {weeksWithLabels.map(({ week, label }, weekIndex) => (
-                  <div key={weekIndex} className="relative flex flex-col gap-[3px] pt-[20px]">
-                    {label && (
-                      <div className="absolute top-0 left-0 text-[10px] text-gray-400 dark:text-gray-500 font-medium select-none whitespace-nowrap">
-                        {label}
-                      </div>
-                    )}
-                    {week.map((day, dayIndex) => {
-                      return (
-                        <div
-                          key={day.date}
-                          className={cn(
-                            "w-[10px] h-[10px] rounded-[2px] transition-colors duration-150",
-                            getLevelColor(day.level)
-                          )}
-                          title={`${day.count} contributions on ${new Date(
-                            day.date
-                          ).toLocaleDateString()}`}
-                        />
-                      );
-                    })}
-                  </div>
-                ))}
+                {/* Weeks grid */}
+                <div className="flex gap-[3px]">
+                  {weeksWithLabels.map(({ week, label }, weekIndex) => (
+                    <div key={weekIndex} className="relative flex flex-col gap-[3px] pt-[20px]">
+                      {label && (
+                        <div className="absolute top-0 left-0 text-[10px] text-gray-400 dark:text-gray-500 font-medium select-none whitespace-nowrap">
+                          {label}
+                        </div>
+                      )}
+                      {week.map((day) => {
+                        const formattedDate = new Date(day.date).toLocaleDateString("en-US", {
+                          weekday: "short",
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric"
+                        });
+                        const tooltipContent = `${day.count} contributions on ${formattedDate}`;
+
+                        return (
+                          <Tooltip key={day.date}>
+                            <TooltipTrigger asChild>
+                              <div
+                                className={cn(
+                                  "w-[10px] h-[10px] rounded-[2px] transition-colors duration-150 cursor-pointer",
+                                  getLevelColor(day.level)
+                                )}
+                              />
+                            </TooltipTrigger>
+                            <TooltipContent className="text-[11px] py-1 px-2 font-medium">
+                              {tooltipContent}
+                            </TooltipContent>
+                          </Tooltip>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Legend */}
-          <div className="flex items-center justify-start gap-1.5 mt-4 text-[10px] text-gray-400 dark:text-gray-500 select-none">
-            <span>Less</span>
-            <div className={cn("w-[10px] h-[10px] rounded-[2px]", getLevelColor(0))} />
-            <div className={cn("w-[10px] h-[10px] rounded-[2px]", getLevelColor(1))} />
-            <div className={cn("w-[10px] h-[10px] rounded-[2px]", getLevelColor(2))} />
-            <div className={cn("w-[10px] h-[10px] rounded-[2px]", getLevelColor(3))} />
-            <div className={cn("w-[10px] h-[10px] rounded-[2px]", getLevelColor(4))} />
-            <span>More</span>
+            {/* Legend */}
+            <div className="flex items-center justify-start gap-1.5 mt-4 text-[10px] text-gray-400 dark:text-gray-500 select-none">
+              <span>Less</span>
+              <div className={cn("w-[10px] h-[10px] rounded-[2px]", getLevelColor(0))} />
+              <div className={cn("w-[10px] h-[10px] rounded-[2px]", getLevelColor(1))} />
+              <div className={cn("w-[10px] h-[10px] rounded-[2px]", getLevelColor(2))} />
+              <div className={cn("w-[10px] h-[10px] rounded-[2px]", getLevelColor(3))} />
+              <div className={cn("w-[10px] h-[10px] rounded-[2px]", getLevelColor(4))} />
+              <span>More</span>
+            </div>
           </div>
-        </div>
+        </TooltipProvider>
       </div>
     </section>
   );
