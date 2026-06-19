@@ -141,7 +141,7 @@
 
 @layer components {
   .blog-display-heading {
-    @apply font-display font-semibold leading-[0.95] tracking-normal text-foreground;
+    @apply font-sans font-semibold leading-snug tracking-tight text-foreground;
   }
 }
 
