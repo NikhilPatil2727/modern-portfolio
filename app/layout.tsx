@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
+import CuteCat from "@/components/ui/CuteCat";
 
 
 const geistSans = Geist({
@@ -49,6 +51,7 @@ export default function RootLayout({
              <Header/>
             {children}
              <Footer/>
+             <CuteCat />
           </ThemeProvider>
       </body>
     </html>
